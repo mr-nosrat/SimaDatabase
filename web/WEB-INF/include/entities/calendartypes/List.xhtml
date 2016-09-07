@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="CalendartypesListForm">
+
+        <p:panel header="#{myBundle.ListCalendartypesTitle}">
+            <p:contextMenu id="CalendartypesDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('CalendartypesListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('CalendartypesListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('CalendartypesListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('CalendartypesListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.CalendartypesMenuItem_equipmentafyshesList}" icon="ui-icon-search"  action="#{calendartypesController.navigateEquipmentafyshesList}" disabled="#{empty calendartypesController.selected.equipmentafyshesList}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.CalendartypesMenuItem_personnelafyshesList}" icon="ui-icon-search"  action="#{calendartypesController.navigatePersonnelafyshesList}" disabled="#{empty calendartypesController.selected.personnelafyshesList}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.CalendartypesMenuItem_programproductsList}" icon="ui-icon-search"  action="#{calendartypesController.navigateProgramproductsList}" disabled="#{empty calendartypesController.selected.programproductsList}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{calendartypesController.lazyItems}"
+                         lazy="true"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"                          paginatorTemplate="{LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink} {RowsPerPageDropdown}"                          paginatorPosition="bottom"                          style="direction: rtl;" 
+                         selectionMode="single"
+                         selection="#{calendartypesController.selected}">
+                <!--
+                         To disable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{calendartypesController.items}"
+                         lazy="false"
+                         rowKey="HASH{item.calendartypeID}"
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:CalendartypesDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:CalendartypesDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('CalendartypesListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.calendartypeID}" filterBy="#{item.calendartypeID}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCalendartypesTitle_calendartypeID}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.calendartypeID}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.calendartypeName}" filterBy="#{item.calendartypeName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCalendartypesTitle_calendartypeName}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.calendartypeName}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.calendartypeRate}" filterBy="#{item.calendartypeRate}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCalendartypesTitle_calendartypeRate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.calendartypeRate}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.calendartypeEmployee}" filterBy="#{item.calendartypeEmployee}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCalendartypesTitle_calendartypeEmployee}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.calendartypeEmployee}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.description}" filterBy="#{item.description}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCalendartypesTitle_description}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.description}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.active}" filterBy="#{item.active}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCalendartypesTitle_active}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="active" value="#{item.active}" title="#{myBundle.EditCalendartypesTitle_active}"  disabled="true"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{calendartypesController.prepareCreate}" update=":CalendartypesCreateForm" oncomplete="PF('CalendartypesCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":CalendartypesViewForm" oncomplete="PF('CalendartypesViewDialog').show()" disabled="#{empty calendartypesController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":CalendartypesEditForm" oncomplete="PF('CalendartypesEditDialog').show()" disabled="#{empty calendartypesController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{calendartypesController.delete}" update=":growl,datalist" disabled="#{empty calendartypesController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

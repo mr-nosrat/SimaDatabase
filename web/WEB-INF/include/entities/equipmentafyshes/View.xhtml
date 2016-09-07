@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EquipmentafyshesViewDlg" widgetVar="EquipmentafyshesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewEquipmentafyshesTitle}" closeOnEscape="true">
+
+            <h:form id="EquipmentafyshesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{equipmentafyshesController.selected != null}" style="direction: rtl;">
+
+                        <h:outputText value="#{myBundle.ViewEquipmentafyshesLabel_equipmentAfyshID}"/>
+                        <h:outputText value="#{equipmentafyshesController.selected.equipmentAfyshID}" title="#{myBundle.ViewEquipmentafyshesTitle_equipmentAfyshID}"/>
+
+                        <h:outputText value="#{myBundle.ViewEquipmentafyshesLabel_afyshDate}"/>
+                        <h:outputText value="#{equipmentafyshesController.selected.afyshDate}" title="#{myBundle.ViewEquipmentafyshesTitle_afyshDate}">
+                            <f:convertDateTime pattern="yyyy/MM/dd" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewEquipmentafyshesLabel_startTime}"/>
+                        <h:outputText value="#{equipmentafyshesController.selected.startTime}" title="#{myBundle.ViewEquipmentafyshesTitle_startTime}">
+                            <f:convertDateTime  pattern="HH:mm" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewEquipmentafyshesLabel_endTime}"/>
+                        <h:outputText value="#{equipmentafyshesController.selected.endTime}" title="#{myBundle.ViewEquipmentafyshesTitle_endTime}">
+                            <f:convertDateTime  pattern="HH:mm" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewEquipmentafyshesLabel_description}"/>
+                        <h:outputText value="#{equipmentafyshesController.selected.description}" title="#{myBundle.ViewEquipmentafyshesTitle_description}"/>
+
+                        <h:outputText value="#{myBundle.ViewEquipmentafyshesLabel_programID}"/>
+                        <h:outputText value="#{equipmentafyshesController.selected.programID.programName}"/>
+
+                        <h:outputText value="#{myBundle.ViewEquipmentafyshesLabel_equipmentID}"/>
+                        <h:outputText value="#{equipmentafyshesController.selected.equipmentID.equipmentName}"/>
+
+                        <h:outputText value="#{myBundle.ViewEquipmentafyshesLabel_calendartypeID}"/>
+                        <h:outputText value="#{equipmentafyshesController.selected.calendartypeID.calendartypeName}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('EquipmentafyshesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

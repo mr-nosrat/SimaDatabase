@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="EquipmentafyshesEditDlg" widgetVar="EquipmentafyshesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditEquipmentafyshesTitle}" closeOnEscape="true">
+
+            <h:form id="EquipmentafyshesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{equipmentafyshesController.selected != null}" style="direction: rtl;">
+
+
+                        <h:outputLabel value="#{myBundle.EditEquipmentafyshesLabel_equipmentAfyshID}" for="equipmentAfyshID" />
+                        <h:outputText id="equipmentAfyshID" value="#{equipmentafyshesController.selected.equipmentAfyshID}" />
+
+                        <p:outputLabel value="#{myBundle.EditEquipmentafyshesLabel_afyshDate}" for="afyshDate" />
+                        <p:calendar id="afyshDate" pattern="yyyy/MM/dd"  locale="fa"  mask="true" dir="ltr"  timeZone="Asia/Iran"    value="#{equipmentafyshesController.selected.afyshDate}" title="#{myBundle.EditEquipmentafyshesTitle_afyshDate}"   />
+
+                        <p:outputLabel value="#{myBundle.EditEquipmentafyshesLabel_startTime}" for="startTime" />
+                        <p:calendar id="startTime"  pattern="HH:mm"  mask="true" dir="ltr" showOn="none" timeZone="Asia/Iran"       value="#{equipmentafyshesController.selected.startTime}" title="#{myBundle.EditEquipmentafyshesTitle_startTime}"   />
+
+                        <p:outputLabel value="#{myBundle.EditEquipmentafyshesLabel_endTime}" for="endTime" />
+                        <p:calendar id="endTime"  pattern="HH:mm"  mask="true" dir="ltr" showOn="none" timeZone="Asia/Iran"       value="#{equipmentafyshesController.selected.endTime}" title="#{myBundle.EditEquipmentafyshesTitle_endTime}"   />
+
+                        <p:outputLabel value="#{myBundle.EditEquipmentafyshesLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{equipmentafyshesController.selected.description}" title="#{myBundle.EditEquipmentafyshesTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.EditEquipmentafyshesLabel_programID}" for="programID" />
+                        <p:selectOneMenu id="programID" value="#{equipmentafyshesController.selected.programID}" required="true" requiredMessage="#{myBundle.EditEquipmentafyshesRequiredMessage_programID}" converter="programsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{programsController.itemsTop}"
+                                           var="programIDItem"
+                                           itemValue="#{programIDItem}"
+                                           itemLabel="#{programIDItem.programName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditEquipmentafyshesLabel_equipmentID}" for="equipmentID" />
+                        <p:selectOneMenu id="equipmentID" value="#{equipmentafyshesController.selected.equipmentID}" required="true" requiredMessage="#{myBundle.EditEquipmentafyshesRequiredMessage_equipmentID}" converter="equipmentsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{equipmentsController.items}"
+                                           var="equipmentIDItem"
+                                           itemValue="#{equipmentIDItem}"
+                                           itemLabel="#{equipmentIDItem.equipmentName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditEquipmentafyshesLabel_calendartypeID}" for="calendartypeID" />
+                        <p:selectOneMenu id="calendartypeID" value="#{equipmentafyshesController.selected.calendartypeID}" required="true" requiredMessage="#{myBundle.EditEquipmentafyshesRequiredMessage_calendartypeID}" converter="calendartypesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{calendartypesController.items}"
+                                           var="calendartypeIDItem"
+                                           itemValue="#{calendartypeIDItem}"
+                                           itemLabel="#{calendartypeIDItem.calendartypeName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{equipmentafyshesController.save}" value="#{myBundle.Save}" update="display,:EquipmentafyshesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('EquipmentafyshesEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('EquipmentafyshesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

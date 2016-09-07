@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsersViewDlg" widgetVar="UsersViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewUsersTitle}" closeOnEscape="true">
+
+            <h:form id="UsersViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{usersController.selected != null}" style="direction: rtl;">
+
+                        <h:outputText value="#{myBundle.ViewUsersLabel_userID}"/>
+                        <h:outputText value="#{usersController.selected.userID}" title="#{myBundle.ViewUsersTitle_userID}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsersLabel_userName}"/>
+                        <h:outputText value="#{usersController.selected.userName}" title="#{myBundle.ViewUsersTitle_userName}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsersLabel_familyName}"/>
+                        <h:outputText value="#{usersController.selected.familyName}" title="#{myBundle.ViewUsersTitle_familyName}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsersLabel_loginName}"/>
+                        <h:outputText value="#{usersController.selected.loginName}" title="#{myBundle.ViewUsersTitle_loginName}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsersLabel_password}"/>
+                        <h:outputText value="#{usersController.selected.password}" title="#{myBundle.ViewUsersTitle_password}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsersLabel_active}"/>
+                        <h:selectBooleanCheckbox id="active" value="#{usersController.selected.active}" title="#{myBundle.EditUsersTitle_active}"  disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewUsersLabel_description}"/>
+                        <h:outputText value="#{usersController.selected.description}" title="#{myBundle.ViewUsersTitle_description}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('UsersViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EquipmentsViewDlg" widgetVar="EquipmentsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewEquipmentsTitle}" closeOnEscape="true">
+
+            <h:form id="EquipmentsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{equipmentsController.selected != null}" style="direction: rtl;">
+
+                        <h:outputText value="#{myBundle.ViewEquipmentsLabel_equipmenID}"/>
+                        <h:outputText value="#{equipmentsController.selected.equipmenID}" title="#{myBundle.ViewEquipmentsTitle_equipmenID}"/>
+
+                        <h:outputText value="#{myBundle.ViewEquipmentsLabel_equipmentName}"/>
+                        <h:outputText value="#{equipmentsController.selected.equipmentName}" title="#{myBundle.ViewEquipmentsTitle_equipmentName}"/>
+
+                        <h:outputText value="#{myBundle.ViewEquipmentsLabel_model}"/>
+                        <h:outputText value="#{equipmentsController.selected.model}" title="#{myBundle.ViewEquipmentsTitle_model}"/>
+
+                        <h:outputText value="#{myBundle.ViewEquipmentsLabel_productor}"/>
+                        <h:outputText value="#{equipmentsController.selected.productor}" title="#{myBundle.ViewEquipmentsTitle_productor}"/>
+
+                        <h:outputText value="#{myBundle.ViewEquipmentsLabel_estatNumber}"/>
+                        <h:outputText value="#{equipmentsController.selected.estatNumber}" title="#{myBundle.ViewEquipmentsTitle_estatNumber}"/>
+
+                        <h:outputText value="#{myBundle.ViewEquipmentsLabel_serialNumber}"/>
+                        <h:outputText value="#{equipmentsController.selected.serialNumber}" title="#{myBundle.ViewEquipmentsTitle_serialNumber}"/>
+
+                        <h:outputText value="#{myBundle.ViewEquipmentsLabel_owner}"/>
+                        <h:outputText value="#{equipmentsController.selected.owner}" title="#{myBundle.ViewEquipmentsTitle_owner}"/>
+
+                        <h:outputText value="#{myBundle.ViewEquipmentsLabel_unit}"/>
+                        <h:outputText value="#{equipmentsController.selected.unit}" title="#{myBundle.ViewEquipmentsTitle_unit}"/>
+
+                        <h:outputText value="#{myBundle.ViewEquipmentsLabel_location}"/>
+                        <h:outputText value="#{equipmentsController.selected.location}" title="#{myBundle.ViewEquipmentsTitle_location}"/>
+
+                        <h:outputText value="#{myBundle.ViewEquipmentsLabel_building}"/>
+                        <h:outputText value="#{equipmentsController.selected.building}" title="#{myBundle.ViewEquipmentsTitle_building}"/>
+
+                        <h:outputText value="#{myBundle.ViewEquipmentsLabel_status}"/>
+                        <h:outputText value="#{equipmentsController.selected.status}" title="#{myBundle.ViewEquipmentsTitle_status}"/>
+
+                        <h:outputText value="#{myBundle.ViewEquipmentsLabel_reserv}"/>
+                        <h:selectBooleanCheckbox id="reserv" value="#{equipmentsController.selected.reserv}" title="#{myBundle.EditEquipmentsTitle_reserv}"  disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewEquipmentsLabel_description}"/>
+                        <h:outputText value="#{equipmentsController.selected.description}" title="#{myBundle.ViewEquipmentsTitle_description}"/>
+
+                        <h:outputText value="#{myBundle.ViewEquipmentsLabel_active}"/>
+                        <h:selectBooleanCheckbox id="active" value="#{equipmentsController.selected.active}" title="#{myBundle.EditEquipmentsTitle_active}"  disabled="true"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('EquipmentsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

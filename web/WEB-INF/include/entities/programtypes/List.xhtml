@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ProgramtypesListForm">
+
+        <p:panel header="#{myBundle.ListProgramtypesTitle}">
+            <p:contextMenu id="ProgramtypesDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('ProgramtypesListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('ProgramtypesListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('ProgramtypesListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('ProgramtypesListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.ProgramtypesMenuItem_programsList}" icon="ui-icon-search"  action="#{programtypesController.navigateProgramsList}" disabled="#{empty programtypesController.selected.programsList}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{programtypesController.lazyItems}"
+                         lazy="true"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"                          paginatorTemplate="{LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink} {RowsPerPageDropdown}"                          paginatorPosition="bottom"                          style="direction: rtl;" 
+                         selectionMode="single"
+                         selection="#{programtypesController.selected}">
+                <!--
+                         To disable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{programtypesController.items}"
+                         lazy="false"
+                         rowKey="HASH{item.programtypeID}"
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ProgramtypesDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ProgramtypesDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ProgramtypesListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.programtypeID}" filterBy="#{item.programtypeID}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProgramtypesTitle_programtypeID}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.programtypeID}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.programtypeName}" filterBy="#{item.programtypeName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProgramtypesTitle_programtypeName}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.programtypeName}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.description}" filterBy="#{item.description}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProgramtypesTitle_description}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.description}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.active}" filterBy="#{item.active}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProgramtypesTitle_active}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="active" value="#{item.active}" title="#{myBundle.EditProgramtypesTitle_active}"  disabled="true"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{programtypesController.prepareCreate}" update=":ProgramtypesCreateForm" oncomplete="PF('ProgramtypesCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ProgramtypesViewForm" oncomplete="PF('ProgramtypesViewDialog').show()" disabled="#{empty programtypesController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ProgramtypesEditForm" oncomplete="PF('ProgramtypesEditDialog').show()" disabled="#{empty programtypesController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{programtypesController.delete}" update=":growl,datalist" disabled="#{empty programtypesController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

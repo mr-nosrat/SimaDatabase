@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProductequipmetafyshesViewDlg" widgetVar="ProductequipmetafyshesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewProductequipmetafyshesTitle}" closeOnEscape="true">
+
+            <h:form id="ProductequipmetafyshesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{productequipmetafyshesController.selected != null}" style="direction: rtl;">
+                        <h:outputText value="#{myBundle.ViewProductequipmetafyshesLabel_programproductID}"/>
+                        <h:outputFormat value="#{productequipmetafyshesController.selected.programproductID.programID.programName} {0, date, yyyy/MM/dd}-{1, date, yyyy/MM/dd} ">
+                            <f:param value="#{productequipmetafyshesController.selected.programproductID.startDate}" />
+                            <f:param value="#{productequipmetafyshesController.selected.programproductID.endDate}" />
+                        </h:outputFormat>
+                        <h:outputText value="#{myBundle.ViewProductequipmetafyshesLabel_equipmentID}"/>
+                        <h:outputText value="#{productequipmetafyshesController.selected.equipmentID.equipmentName}"/>
+
+                        <h:outputText value="#{myBundle.ViewProductequipmetafyshesLabel_productequipmetafyshID}"/>
+                        <h:outputText value="#{productequipmetafyshesController.selected.productequipmetafyshID}" title="#{myBundle.ViewProductequipmetafyshesTitle_productequipmetafyshID}"/>
+
+                        <h:outputText value="#{myBundle.ViewProductequipmetafyshesLabel_startDate}"/>
+                        <h:outputText value="#{productequipmetafyshesController.selected.startDate}" title="#{myBundle.ViewProductequipmetafyshesTitle_startDate}">
+                            <f:convertDateTime pattern="yyyy/MM/dd" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewProductequipmetafyshesLabel_endDate}"/>
+                        <h:outputText value="#{productequipmetafyshesController.selected.endDate}" title="#{myBundle.ViewProductequipmetafyshesTitle_endDate}">
+                            <f:convertDateTime pattern="yyyy/MM/dd" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewProductequipmetafyshesLabel_startTime}"/>
+                        <h:outputText value="#{productequipmetafyshesController.selected.startTime}" title="#{myBundle.ViewProductequipmetafyshesTitle_startTime}">
+                            <f:convertDateTime  pattern="HH:mm" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewProductequipmetafyshesLabel_endTime}"/>
+                        <h:outputText value="#{productequipmetafyshesController.selected.endTime}" title="#{myBundle.ViewProductequipmetafyshesTitle_endTime}">
+                            <f:convertDateTime  pattern="HH:mm" />
+                        </h:outputText>
+
+
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('ProductequipmetafyshesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

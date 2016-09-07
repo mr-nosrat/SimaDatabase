@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <h:form id="menuForm">
+            <p:menubar>
+                <p:menuitem value="#{myBundle.Home}" outcome="/index" icon="ui-icon-home"/>
+                <p:submenu label="#{myBundle.Maintenance}">
+                    <p:menuitem value="#{myBundle.AccessHeading}..." outcome="/entities/access/index" />
+                    <p:menuitem value="#{myBundle.ActionsHeading}..." outcome="/entities/actions/index" />
+                    <p:menuitem value="#{myBundle.CalendartypesHeading}..." outcome="/entities/calendartypes/index" />
+                    <p:menuitem value="#{myBundle.EquipmentafyshesHeading}..." outcome="/entities/equipmentafyshes/index" />
+                    <p:menuitem value="#{myBundle.EquipmentsHeading}..." outcome="/entities/equipments/index" />
+                    <p:menuitem value="#{myBundle.EquipmentusagesHeading}..." outcome="/entities/equipmentusages/index" />
+                    <p:menuitem value="#{myBundle.JobtitlesHeading}..." outcome="/entities/jobtitles/index" />
+                    <p:menuitem value="#{myBundle.LocationsHeading}..." outcome="/entities/locations/index" />
+                    <p:menuitem value="#{myBundle.MaterialsHeading}..." outcome="/entities/materials/index" />
+                    <p:menuitem value="#{myBundle.PersonnelafyshesHeading}..." outcome="/entities/personnelafyshes/index" />
+                    <p:menuitem value="#{myBundle.PersonnelpatternHeading}..." outcome="/entities/personnelpattern/index" />
+                    <p:menuitem value="#{myBundle.PersonnelsHeading}..." outcome="/entities/personnels/index" />
+                    <p:menuitem value="#{myBundle.ProductequipmetafyshesHeading}..." outcome="/entities/productequipmetafyshes/index" />
+                    <p:menuitem value="#{myBundle.ProductpersonnelafyshesHeading}..." outcome="/entities/productpersonnelafyshes/index" />
+                    <p:menuitem value="#{myBundle.ProgramgroupsHeading}..." outcome="/entities/programgroups/index" />
+                    <p:menuitem value="#{myBundle.ProgramproductsHeading}..." outcome="/entities/programproducts/index" />
+                    <p:menuitem value="#{myBundle.ProgramsHeading}..." outcome="/entities/programs/index" />
+                    <p:menuitem value="#{myBundle.ProgramtypesHeading}..." outcome="/entities/programtypes/index" />
+                    <p:menuitem value="#{myBundle.SubjectsHeading}..." outcome="/entities/subjects/index" />
+                    <p:menuitem value="#{myBundle.UnitsHeading}..." outcome="/entities/units/index" />
+                    <p:menuitem value="#{myBundle.UseraccessHeading}..." outcome="/entities/useraccess/index" />
+                    <p:menuitem value="#{myBundle.UsersHeading}..." outcome="/entities/users/index" />
+                </p:submenu>
+            </p:menubar>
+        </h:form>
+    </ui:composition>
+
+</html>

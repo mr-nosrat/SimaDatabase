@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProgramsViewDlg" widgetVar="ProgramsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewProgramsTitle}" closeOnEscape="true">
+
+            <h:form id="ProgramsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" columnClasses="column" rendered="#{programsController.selected != null}" style="direction: rtl;">
+                        <h:outputText value="#{myBundle.ViewProgramsLabel_unitID}"/>
+                        <h:outputText value="#{programsController.selected.unitID.unitName}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramsLabel_subjectID}"/>
+                        <h:outputText value="#{programsController.selected.subjectID.subjectName}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramsLabel_programtypeID}"/>
+                        <h:outputText value="#{programsController.selected.programtypeID.programtypeName}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramsLabel_producerID}"/>
+                        <h:outputText value="#{programsController.selected.producerID.personnelName}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramsLabel_directorID}"/>
+                        <h:outputText value="#{programsController.selected.directorID.personnelName}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramsLabel_productgroupID}"/>
+                        <h:outputText value="#{programsController.selected.productgroupID.programgroupName}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramsLabel_programID}"/>
+                        <h:outputText value="#{programsController.selected.programID}" title="#{myBundle.ViewProgramsTitle_programID}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramsLabel_programName}"/>
+                        <h:outputText value="#{programsController.selected.programName}" title="#{myBundle.ViewProgramsTitle_programName}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramsLabel_programCount}"/>
+                        <h:outputText value="#{programsController.selected.programCount}" title="#{myBundle.ViewProgramsTitle_programCount}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramsLabel_programTime}"/>
+                        <h:outputText value="#{programsController.selected.programTime}" title="#{myBundle.ViewProgramsTitle_programTime}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramsLabel_estimateNumber}"/>
+                        <h:outputText value="#{programsController.selected.estimateNumber}" title="#{myBundle.ViewProgramsTitle_estimateNumber}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramsLabel_archiveNumber}"/>
+                        <h:outputText value="#{programsController.selected.archiveNumber}" title="#{myBundle.ViewProgramsTitle_archiveNumber}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramsLabel_programPrefixCode}"/>
+                        <h:outputText value="#{programsController.selected.programPrefixCode}" title="#{myBundle.ViewProgramsTitle_programPrefixCode}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramsLabel_programCode}"/>
+                        <h:outputText value="#{programsController.selected.programCode}" title="#{myBundle.ViewProgramsTitle_programCode}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramsLabel_amendmentEstimate}"/>
+                        <h:outputText value="#{programsController.selected.amendmentEstimate}" title="#{myBundle.ViewProgramsTitle_amendmentEstimate}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramsLabel_description}"/>
+                        <h:outputText value="#{programsController.selected.description}" title="#{myBundle.ViewProgramsTitle_description}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramsLabel_active}"/>
+                        <h:selectBooleanCheckbox id="active" value="#{programsController.selected.active}" title="#{myBundle.EditProgramsTitle_active}"  disabled="true"/>
+
+
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('ProgramsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

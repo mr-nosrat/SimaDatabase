@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="JobtitlesEditDlg" widgetVar="JobtitlesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditJobtitlesTitle}" closeOnEscape="true">
+
+            <h:form id="JobtitlesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{jobtitlesController.selected != null}" style="direction: rtl;">
+
+
+                        <h:outputLabel value="#{myBundle.EditJobtitlesLabel_jobtitleID}" for="jobtitleID" />
+                        <h:outputText id="jobtitleID" value="#{jobtitlesController.selected.jobtitleID}" />
+
+                        <p:outputLabel value="#{myBundle.EditJobtitlesLabel_jobtitleName}" for="jobtitleName" />
+                        <p:inputTextarea rows="4" cols="30" id="jobtitleName" value="#{jobtitlesController.selected.jobtitleName}" title="#{myBundle.EditJobtitlesTitle_jobtitleName}" required="true" requiredMessage="#{myBundle.EditJobtitlesRequiredMessage_jobtitleName}"/>
+
+                        <p:outputLabel value="#{myBundle.EditJobtitlesLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{jobtitlesController.selected.description}" title="#{myBundle.EditJobtitlesTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.EditJobtitlesLabel_active}" for="active" />
+                        <p:selectBooleanCheckbox id="active" value="#{jobtitlesController.selected.active}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{jobtitlesController.save}" value="#{myBundle.Save}" update="display,:JobtitlesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('JobtitlesEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('JobtitlesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

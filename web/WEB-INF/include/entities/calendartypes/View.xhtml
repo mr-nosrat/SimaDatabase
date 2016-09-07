@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CalendartypesViewDlg" widgetVar="CalendartypesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewCalendartypesTitle}" closeOnEscape="true">
+
+            <h:form id="CalendartypesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{calendartypesController.selected != null}" style="direction: rtl;">
+
+                        <h:outputText value="#{myBundle.ViewCalendartypesLabel_calendartypeID}"/>
+                        <h:outputText value="#{calendartypesController.selected.calendartypeID}" title="#{myBundle.ViewCalendartypesTitle_calendartypeID}"/>
+
+                        <h:outputText value="#{myBundle.ViewCalendartypesLabel_calendartypeName}"/>
+                        <h:outputText value="#{calendartypesController.selected.calendartypeName}" title="#{myBundle.ViewCalendartypesTitle_calendartypeName}"/>
+
+                        <h:outputText value="#{myBundle.ViewCalendartypesLabel_calendartypeRate}"/>
+                        <h:outputText value="#{calendartypesController.selected.calendartypeRate}" title="#{myBundle.ViewCalendartypesTitle_calendartypeRate}"/>
+
+                        <h:outputText value="#{myBundle.ViewCalendartypesLabel_calendartypeEmployee}"/>
+                        <h:outputText value="#{calendartypesController.selected.calendartypeEmployee}" title="#{myBundle.ViewCalendartypesTitle_calendartypeEmployee}"/>
+
+                        <h:outputText value="#{myBundle.ViewCalendartypesLabel_description}"/>
+                        <h:outputText value="#{calendartypesController.selected.description}" title="#{myBundle.ViewCalendartypesTitle_description}"/>
+
+                        <h:outputText value="#{myBundle.ViewCalendartypesLabel_active}"/>
+                        <h:selectBooleanCheckbox id="active" value="#{calendartypesController.selected.active}" title="#{myBundle.EditCalendartypesTitle_active}"  disabled="true"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('CalendartypesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

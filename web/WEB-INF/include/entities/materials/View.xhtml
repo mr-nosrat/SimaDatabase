@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaterialsViewDlg" widgetVar="MaterialsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewMaterialsTitle}" closeOnEscape="true">
+
+            <h:form id="MaterialsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{materialsController.selected != null}" style="direction: rtl;">
+
+                        <h:outputText value="#{myBundle.ViewMaterialsLabel_materialID}"/>
+                        <h:outputText value="#{materialsController.selected.materialID}" title="#{myBundle.ViewMaterialsTitle_materialID}"/>
+
+                        <h:outputText value="#{myBundle.ViewMaterialsLabel_materialName}"/>
+                        <h:outputText value="#{materialsController.selected.materialName}" title="#{myBundle.ViewMaterialsTitle_materialName}"/>
+
+                        <h:outputText value="#{myBundle.ViewMaterialsLabel_count}"/>
+                        <h:outputText value="#{materialsController.selected.count}" title="#{myBundle.ViewMaterialsTitle_count}"/>
+
+                        <h:outputText value="#{myBundle.ViewMaterialsLabel_description}"/>
+                        <h:outputText value="#{materialsController.selected.description}" title="#{myBundle.ViewMaterialsTitle_description}"/>
+
+                        <h:outputText value="#{myBundle.ViewMaterialsLabel_locationID}"/>
+                        <h:outputText value="#{materialsController.selected.locationID.locationName}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('MaterialsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

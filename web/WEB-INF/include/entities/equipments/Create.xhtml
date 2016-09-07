@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EquipmentsCreateDlg" widgetVar="EquipmentsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateEquipmentsTitle}" closeOnEscape="true">
+
+            <h:form id="EquipmentsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{equipmentsController.selected != null}" style="direction: rtl;">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateEquipmentsLabel_equipmentName}" for="equipmentName" />
+                        <p:inputText id="equipmentName" value="#{equipmentsController.selected.equipmentName}" title="#{myBundle.CreateEquipmentsTitle_equipmentName}" size="50" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEquipmentsLabel_model}" for="model" />
+                        <p:inputText id="model" value="#{equipmentsController.selected.model}" title="#{myBundle.CreateEquipmentsTitle_model}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEquipmentsLabel_productor}" for="productor" />
+                        <p:inputText id="productor" value="#{equipmentsController.selected.productor}" title="#{myBundle.CreateEquipmentsTitle_productor}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEquipmentsLabel_estatNumber}" for="estatNumber" />
+                        <p:inputText id="estatNumber" value="#{equipmentsController.selected.estatNumber}" title="#{myBundle.CreateEquipmentsTitle_estatNumber}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEquipmentsLabel_serialNumber}" for="serialNumber" />
+                        <p:inputText id="serialNumber" value="#{equipmentsController.selected.serialNumber}" title="#{myBundle.CreateEquipmentsTitle_serialNumber}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEquipmentsLabel_owner}" for="owner" />
+                        <p:inputText id="owner" value="#{equipmentsController.selected.owner}" title="#{myBundle.CreateEquipmentsTitle_owner}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEquipmentsLabel_unit}" for="unit" />
+                        <p:inputText id="unit" value="#{equipmentsController.selected.unit}" title="#{myBundle.CreateEquipmentsTitle_unit}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEquipmentsLabel_location}" for="location" />
+                        <p:inputText id="location" value="#{equipmentsController.selected.location}" title="#{myBundle.CreateEquipmentsTitle_location}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEquipmentsLabel_building}" for="building" />
+                        <p:inputText id="building" value="#{equipmentsController.selected.building}" title="#{myBundle.CreateEquipmentsTitle_building}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEquipmentsLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{equipmentsController.selected.status}" title="#{myBundle.CreateEquipmentsTitle_status}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEquipmentsLabel_reserv}" for="reserv" />
+                        <p:selectBooleanCheckbox id="reserv" value="#{equipmentsController.selected.reserv}" />
+
+                        <p:outputLabel value="#{myBundle.CreateEquipmentsLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{equipmentsController.selected.description}" title="#{myBundle.CreateEquipmentsTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.CreateEquipmentsLabel_active}" for="active" />
+                        <p:selectBooleanCheckbox id="active" value="#{equipmentsController.selected.active}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{equipmentsController.saveNew}" value="#{myBundle.Save}" update="display,:EquipmentsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('EquipmentsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('EquipmentsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

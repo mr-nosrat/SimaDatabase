@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SubjectsViewDlg" widgetVar="SubjectsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewSubjectsTitle}" closeOnEscape="true">
+
+            <h:form id="SubjectsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{subjectsController.selected != null}" style="direction: rtl;">
+
+                        <h:outputText value="#{myBundle.ViewSubjectsLabel_subjectID}"/>
+                        <h:outputText value="#{subjectsController.selected.subjectID}" title="#{myBundle.ViewSubjectsTitle_subjectID}"/>
+
+                        <h:outputText value="#{myBundle.ViewSubjectsLabel_subjectName}"/>
+                        <h:outputText value="#{subjectsController.selected.subjectName}" title="#{myBundle.ViewSubjectsTitle_subjectName}"/>
+
+                        <h:outputText value="#{myBundle.ViewSubjectsLabel_description}"/>
+                        <h:outputText value="#{subjectsController.selected.description}" title="#{myBundle.ViewSubjectsTitle_description}"/>
+
+                        <h:outputText value="#{myBundle.ViewSubjectsLabel_active}"/>
+                        <h:selectBooleanCheckbox id="active" value="#{subjectsController.selected.active}" title="#{myBundle.EditSubjectsTitle_active}"  disabled="true"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('SubjectsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

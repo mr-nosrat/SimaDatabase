@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="UseraccessEditDlg" widgetVar="UseraccessEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditUseraccessTitle}" closeOnEscape="true">
+
+            <h:form id="UseraccessEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{useraccessController.selected != null}" style="direction: rtl;">
+
+
+                        <h:outputLabel value="#{myBundle.EditUseraccessLabel_userAccessID}" for="userAccessID" />
+                        <h:outputText id="userAccessID" value="#{useraccessController.selected.userAccessID}" />
+
+                        <p:outputLabel value="#{myBundle.EditUseraccessLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{useraccessController.selected.description}" title="#{myBundle.EditUseraccessTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.EditUseraccessLabel_active}" for="active" />
+                        <p:selectBooleanCheckbox id="active" value="#{useraccessController.selected.active}" />
+
+                        <p:outputLabel value="#{myBundle.EditUseraccessLabel_userID}" for="userID" />
+                        <p:selectOneMenu id="userID" value="#{useraccessController.selected.userID}" required="true" requiredMessage="#{myBundle.EditUseraccessRequiredMessage_userID}" converter="usersConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usersController.items}"
+                                           var="userIDItem"
+                                           itemValue="#{userIDItem}"
+                                           itemLabel="#{userIDItem.userName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditUseraccessLabel_accessID}" for="accessID" />
+                        <p:selectOneMenu id="accessID" value="#{useraccessController.selected.accessID}" required="true" requiredMessage="#{myBundle.EditUseraccessRequiredMessage_accessID}" converter="accessConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{accessController.items}"
+                                           var="accessIDItem"
+                                           itemValue="#{accessIDItem}"
+                                           itemLabel="#{accessIDItem.accessName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{useraccessController.save}" value="#{myBundle.Save}" update="display,:UseraccessListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('UseraccessEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('UseraccessEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

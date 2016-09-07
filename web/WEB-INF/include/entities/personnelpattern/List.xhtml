@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="PersonnelpatternListForm">
+
+        <p:panel header="#{myBundle.ListPersonnelpatternTitle}">
+            <p:contextMenu id="PersonnelpatternDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('PersonnelpatternListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('PersonnelpatternListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('PersonnelpatternListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('PersonnelpatternListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.PersonnelpatternMenuItem_unitID}" icon="ui-icon-search"  actionListener="#{personnelpatternController.prepareUnitID}" update=":UnitsViewForm" oncomplete="PF('UnitsViewDialog').show()" disabled="#{empty personnelpatternController.selected.unitID}"/>  
+                <p:menuitem value="#{myBundle.PersonnelpatternMenuItem_jobtitleID}" icon="ui-icon-search"  actionListener="#{personnelpatternController.prepareJobtitleID}" update=":JobtitlesViewForm" oncomplete="PF('JobtitlesViewDialog').show()" disabled="#{empty personnelpatternController.selected.jobtitleID}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{personnelpatternController.lazyItems}"
+                         lazy="true"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"                          paginatorTemplate="{LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink} {RowsPerPageDropdown}"                          paginatorPosition="bottom"                          style="direction: rtl;" 
+                         selectionMode="single"
+                         selection="#{personnelpatternController.selected}">
+                <!--
+                         To disable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{personnelpatternController.items}"
+                         lazy="false"
+                         rowKey="HASH{item.personnelpatternID}"
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:PersonnelpatternDataTableContextMenu" listener="#{personnelpatternController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:PersonnelpatternDataTableContextMenu" listener="#{personnelpatternController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{personnelpatternController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('PersonnelpatternListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.personnelpatternID}" filterBy="#{item.personnelpatternID}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPersonnelpatternTitle_personnelpatternID}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.personnelpatternID}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.unitID.unitName}" filterBy="#{item.unitID.unitName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPersonnelpatternTitle_unitID}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.unitID.unitName}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.jobtitleID.jobtitleName}" filterBy="#{item.jobtitleID.jobtitleName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPersonnelpatternTitle_jobtitleID}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.jobtitleID.jobtitleName}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.personnelpatternDate}" filterBy="#{item.personnelpatternDate}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPersonnelpatternTitle_personnelpatternDate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.personnelpatternDate}">
+                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.count}" filterBy="#{item.count}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPersonnelpatternTitle_count}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.count}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.description}" filterBy="#{item.description}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPersonnelpatternTitle_description}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.description}"/>
+                </p:column>
+
+
+
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{personnelpatternController.prepareCreate}" update=":PersonnelpatternCreateForm" oncomplete="PF('PersonnelpatternCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":PersonnelpatternViewForm" oncomplete="PF('PersonnelpatternViewDialog').show()" disabled="#{empty personnelpatternController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":PersonnelpatternEditForm" oncomplete="PF('PersonnelpatternEditDialog').show()" disabled="#{empty personnelpatternController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{personnelpatternController.delete}" update=":growl,datalist" disabled="#{empty personnelpatternController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

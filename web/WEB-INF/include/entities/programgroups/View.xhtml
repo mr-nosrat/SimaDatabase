@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProgramgroupsViewDlg" widgetVar="ProgramgroupsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewProgramgroupsTitle}" closeOnEscape="true">
+
+            <h:form id="ProgramgroupsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{programgroupsController.selected != null}" style="direction: rtl;">
+
+                        <h:outputText value="#{myBundle.ViewProgramgroupsLabel_programgroupID}"/>
+                        <h:outputText value="#{programgroupsController.selected.programgroupID}" title="#{myBundle.ViewProgramgroupsTitle_programgroupID}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramgroupsLabel_programgroupName}"/>
+                        <h:outputText value="#{programgroupsController.selected.programgroupName}" title="#{myBundle.ViewProgramgroupsTitle_programgroupName}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramgroupsLabel_description}"/>
+                        <h:outputText value="#{programgroupsController.selected.description}" title="#{myBundle.ViewProgramgroupsTitle_description}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramgroupsLabel_active}"/>
+                        <h:selectBooleanCheckbox id="active" value="#{programgroupsController.selected.active}" title="#{myBundle.EditProgramgroupsTitle_active}"  disabled="true"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('ProgramgroupsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

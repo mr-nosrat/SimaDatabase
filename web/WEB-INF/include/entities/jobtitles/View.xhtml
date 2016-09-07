@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="JobtitlesViewDlg" widgetVar="JobtitlesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewJobtitlesTitle}" closeOnEscape="true">
+
+            <h:form id="JobtitlesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{jobtitlesController.selected != null}" style="direction: rtl;">
+
+                        <h:outputText value="#{myBundle.ViewJobtitlesLabel_jobtitleID}"/>
+                        <h:outputText value="#{jobtitlesController.selected.jobtitleID}" title="#{myBundle.ViewJobtitlesTitle_jobtitleID}"/>
+
+                        <h:outputText value="#{myBundle.ViewJobtitlesLabel_jobtitleName}"/>
+                        <h:outputText value="#{jobtitlesController.selected.jobtitleName}" title="#{myBundle.ViewJobtitlesTitle_jobtitleName}"/>
+
+                        <h:outputText value="#{myBundle.ViewJobtitlesLabel_description}"/>
+                        <h:outputText value="#{jobtitlesController.selected.description}" title="#{myBundle.ViewJobtitlesTitle_description}"/>
+
+                        <h:outputText value="#{myBundle.ViewJobtitlesLabel_active}"/>
+                        <h:selectBooleanCheckbox id="active" value="#{jobtitlesController.selected.active}" title="#{myBundle.EditJobtitlesTitle_active}"  disabled="true"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('JobtitlesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

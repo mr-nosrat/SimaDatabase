@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UnitsViewDlg" widgetVar="UnitsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewUnitsTitle}" closeOnEscape="true">
+
+            <h:form id="UnitsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{unitsController.selected != null}" style="direction: rtl;">
+
+                        <h:outputText value="#{myBundle.ViewUnitsLabel_unitID}"/>
+                        <h:outputText value="#{unitsController.selected.unitID}" title="#{myBundle.ViewUnitsTitle_unitID}"/>
+
+                        <h:outputText value="#{myBundle.ViewUnitsLabel_unitName}"/>
+                        <h:outputText value="#{unitsController.selected.unitName}" title="#{myBundle.ViewUnitsTitle_unitName}"/>
+
+                        <h:outputText value="#{myBundle.ViewUnitsLabel_description}"/>
+                        <h:outputText value="#{unitsController.selected.description}" title="#{myBundle.ViewUnitsTitle_description}"/>
+
+                        <h:outputText value="#{myBundle.ViewUnitsLabel_active}"/>
+                        <h:selectBooleanCheckbox id="active" value="#{unitsController.selected.active}" title="#{myBundle.EditUnitsTitle_active}"  disabled="true"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('UnitsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

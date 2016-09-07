@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ProgramproductsEditDlg" widgetVar="ProgramproductsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditProgramproductsTitle}" closeOnEscape="true">
+
+            <h:form id="ProgramproductsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{programproductsController.selected != null}" style="direction: rtl;">
+                        <h:outputLabel value="#{myBundle.EditProgramproductsLabel_programproductID}" for="programproductID" />
+                        <h:outputText id="programproductID" value="#{programproductsController.selected.programproductID}" />
+
+                        <p:outputLabel value="#{myBundle.EditProgramproductsLabel_programproductsName}" for="programproductsName" />
+                        <p:inputText id="programproductsName" value="#{programproductsController.selected.programproductsName}" title="#{myBundle.EditProgramproductsTitle_programproductsName}" required="true" requiredMessage="#{myBundle.EditProgramproductsRequiredMessage_programproductsName}" size="45" maxlength="45"/>
+
+                        <p:outputLabel value="#{myBundle.EditProgramproductsLabel_unitID}" for="unitID" />
+                        <p:selectOneMenu id="unitID" value="#{programproductsController.selected.unitID}"  converter="unitsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{unitsController.items}"
+                                           var="unitIDItem"
+                                           itemValue="#{unitIDItem}"
+                                           itemLabel="#{unitIDItem.unitName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditProgramproductsLabel_programID}" for="programID" />
+                        <p:selectOneMenu id="programID" value="#{programproductsController.selected.programID}"  converter="programsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{programsController.itemsTop}"
+                                           var="programIDItem"
+                                           itemValue="#{programIDItem}"
+                                           itemLabel="#{programIDItem.programName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditProgramproductsLabel_locationID}" for="locationID" />
+                        <p:selectOneMenu id="locationID" value="#{programproductsController.selected.locationID}"  converter="locationsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{locationsController.items}"
+                                           var="locationIDItem"
+                                           itemValue="#{locationIDItem}"
+                                           itemLabel="#{locationIDItem.locationName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditProgramproductsLabel_calendartypeID}" for="calendartypeID" />
+                        <p:selectOneMenu id="calendartypeID" value="#{programproductsController.selected.calendartypeID}"  converter="calendartypesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{calendartypesController.items}"
+                                           var="calendartypeIDItem"
+                                           itemValue="#{calendartypeIDItem}"
+                                           itemLabel="#{calendartypeIDItem.calendartypeName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+
+                        <p:outputLabel value="#{myBundle.EditProgramproductsLabel_startDate}" for="startDate" />
+                        <p:calendar id="startDate" pattern="yyyy/MM/dd"  locale="fa"  mask="true" dir="ltr"  timeZone="Asia/Iran"    value="#{programproductsController.selected.startDate}" title="#{myBundle.EditProgramproductsTitle_startDate}"   />
+
+                        <p:outputLabel value="#{myBundle.EditProgramproductsLabel_endDate}" for="endDate" />
+                        <p:calendar id="endDate" pattern="yyyy/MM/dd"  locale="fa"  mask="true" dir="ltr"  timeZone="Asia/Iran"    value="#{programproductsController.selected.endDate}" title="#{myBundle.EditProgramproductsTitle_endDate}"   />
+
+                        <p:outputLabel value="#{myBundle.EditProgramproductsLabel_startTime}" for="startTime" />
+                        <p:calendar id="startTime"  pattern="HH:mm"  mask="true" dir="ltr" showOn="none" timeZone="Asia/Iran"       value="#{programproductsController.selected.startTime}" title="#{myBundle.EditProgramproductsTitle_startTime}"   />
+
+                        <p:outputLabel value="#{myBundle.EditProgramproductsLabel_endTime}" for="endTime" />
+                        <p:calendar id="endTime"  pattern="HH:mm"  mask="true" dir="ltr" showOn="none" timeZone="Asia/Iran"       value="#{programproductsController.selected.endTime}" title="#{myBundle.EditProgramproductsTitle_endTime}"   />
+
+                        <p:outputLabel value="#{myBundle.EditProgramproductsLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{programproductsController.selected.description}" title="#{myBundle.EditProgramproductsTitle_description}" />
+
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{programproductsController.save}" value="#{myBundle.Save}" update="display,:ProgramproductsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ProgramproductsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ProgramproductsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

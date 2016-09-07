@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProductequipmetafyshesCreateDlg" widgetVar="ProductequipmetafyshesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateProductequipmetafyshesTitle}" closeOnEscape="true">
+
+            <h:form id="ProductequipmetafyshesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{productequipmetafyshesController.selected != null}" style="direction: rtl;">
+                    <p:panelGrid columns="2" columnClasses="column">
+                        <p:outputLabel value="#{myBundle.CreateProductequipmetafyshesLabel_programproductID}" for="programproductID" />
+                        <p:selectOneMenu id="programproductID" value="#{productequipmetafyshesController.selected.programproductID}"  converter="programproductsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{programproductsController.items}"
+                                           var="programproductIDItem"
+                                           itemValue="#{programproductIDItem}"
+                                           itemLabel="#{programproductsController.formatDate(programproductIDItem.startDate,'yyyy/MM/dd')}-#{programproductsController.formatDate(programproductIDItem.endDate,'yyyy/MM/dd')} #{programproductIDItem.programID.programName}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateProductequipmetafyshesLabel_equipmentID}" for="equipmentID" />
+                        <p:selectOneMenu id="equipmentID" value="#{productequipmetafyshesController.selected.equipmentID}"  converter="equipmentsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{equipmentsController.items}"
+                                           var="equipmentIDItem"
+                                           itemValue="#{equipmentIDItem}"
+                                           itemLabel="#{equipmentIDItem.equipmentName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateProductequipmetafyshesLabel_startDate}" for="startDate" />
+                        <p:calendar id="startDate" pattern="yyyy/MM/dd"  locale="fa"  mask="true" dir="ltr"  timeZone="Asia/Iran"    value="#{productequipmetafyshesController.selected.startDate}" title="#{myBundle.CreateProductequipmetafyshesTitle_startDate}"   />
+
+                        <p:outputLabel value="#{myBundle.CreateProductequipmetafyshesLabel_endDate}" for="endDate" />
+                        <p:calendar id="endDate" pattern="yyyy/MM/dd"  locale="fa"  mask="true" dir="ltr"  timeZone="Asia/Iran"    value="#{productequipmetafyshesController.selected.endDate}" title="#{myBundle.CreateProductequipmetafyshesTitle_endDate}"   />
+
+                        <p:outputLabel value="#{myBundle.CreateProductequipmetafyshesLabel_startTime}" for="startTime" />
+                        <p:calendar id="startTime"  pattern="HH:mm"  mask="true" dir="ltr" showOn="none" timeZone="Asia/Iran"       value="#{productequipmetafyshesController.selected.startTime}" title="#{myBundle.CreateProductequipmetafyshesTitle_startTime}"   />
+
+                        <p:outputLabel value="#{myBundle.CreateProductequipmetafyshesLabel_endTime}" for="endTime" />
+                        <p:calendar id="endTime"  pattern="HH:mm"  mask="true" dir="ltr" showOn="none" timeZone="Asia/Iran"       value="#{productequipmetafyshesController.selected.endTime}" title="#{myBundle.CreateProductequipmetafyshesTitle_endTime}"   />
+
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{productequipmetafyshesController.saveNew}" value="#{myBundle.Save}" update="display,:ProductequipmetafyshesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ProductequipmetafyshesCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ProductequipmetafyshesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

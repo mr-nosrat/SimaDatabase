@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AccessCreateDlg" widgetVar="AccessCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateAccessTitle}" closeOnEscape="true">
+
+            <h:form id="AccessCreateForm">
+
+                <h:panelGroup id="display" rendered="#{accessController.selected != null}" style="direction: rtl;">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateAccessLabel_accessName}" for="accessName" />
+                        <p:inputTextarea rows="4" cols="30" id="accessName" value="#{accessController.selected.accessName}" title="#{myBundle.CreateAccessTitle_accessName}" required="true" requiredMessage="#{myBundle.CreateAccessRequiredMessage_accessName}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAccessLabel_pageName}" for="pageName" />
+                        <p:inputText id="pageName" value="#{accessController.selected.pageName}" title="#{myBundle.CreateAccessTitle_pageName}" size="50" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAccessLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{accessController.selected.description}" title="#{myBundle.CreateAccessTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.CreateAccessLabel_active}" for="active" />
+                        <p:selectBooleanCheckbox id="active" value="#{accessController.selected.active}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{accessController.saveNew}" value="#{myBundle.Save}" update="display,:AccessListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('AccessCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('AccessCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PersonnelafyshesViewDlg" widgetVar="PersonnelafyshesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewPersonnelafyshesTitle}" closeOnEscape="true">
+
+            <h:form id="PersonnelafyshesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{personnelafyshesController.selected != null}" style="direction: rtl;">
+
+                        <h:outputText value="#{myBundle.ViewPersonnelafyshesLabel_personnelAfyshID}"/>
+                        <h:outputText value="#{personnelafyshesController.selected.personnelAfyshID}" title="#{myBundle.ViewPersonnelafyshesTitle_personnelAfyshID}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelafyshesLabel_afyshDate}"/>
+                        <h:outputText value="#{personnelafyshesController.selected.afyshDate}" title="#{myBundle.ViewPersonnelafyshesTitle_afyshDate}">
+                            <f:convertDateTime pattern="yyyy/MM/dd" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelafyshesLabel_startTime}"/>
+                        <h:outputText value="#{personnelafyshesController.selected.startTime}" title="#{myBundle.ViewPersonnelafyshesTitle_startTime}">
+                            <f:convertDateTime  pattern="HH:mm" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelafyshesLabel_endTime}"/>
+                        <h:outputText value="#{personnelafyshesController.selected.endTime}" title="#{myBundle.ViewPersonnelafyshesTitle_endTime}">
+                            <f:convertDateTime  pattern="HH:mm" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelafyshesLabel_description}"/>
+                        <h:outputText value="#{personnelafyshesController.selected.description}" title="#{myBundle.ViewPersonnelafyshesTitle_description}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelafyshesLabel_locationID}"/>
+                        <h:outputText value="#{personnelafyshesController.selected.locationID.locationName}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelafyshesLabel_calendartypeID}"/>
+                        <h:outputText value="#{personnelafyshesController.selected.calendartypeID.calendartypeName}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelafyshesLabel_programID}"/>
+                        <h:outputText value="#{personnelafyshesController.selected.programID.programName}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelafyshesLabel_personnelID}"/>
+                        <h:outputText value="#{personnelafyshesController.selected.personnelID.personnelName}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('PersonnelafyshesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

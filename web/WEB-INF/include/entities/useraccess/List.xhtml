@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="UseraccessListForm">
+
+        <p:panel header="#{myBundle.ListUseraccessTitle}">
+            <p:contextMenu id="UseraccessDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('UseraccessListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('UseraccessListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('UseraccessListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('UseraccessListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.UseraccessMenuItem_userID}" icon="ui-icon-search"  actionListener="#{useraccessController.prepareUserID}" update=":UsersViewForm" oncomplete="PF('UsersViewDialog').show()" disabled="#{empty useraccessController.selected.userID}"/>  
+                <p:menuitem value="#{myBundle.UseraccessMenuItem_accessID}" icon="ui-icon-search"  actionListener="#{useraccessController.prepareAccessID}" update=":AccessViewForm" oncomplete="PF('AccessViewDialog').show()" disabled="#{empty useraccessController.selected.accessID}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{useraccessController.lazyItems}"
+                         lazy="true"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"                          paginatorTemplate="{LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink} {RowsPerPageDropdown}"                          paginatorPosition="bottom"                          style="direction: rtl;" 
+                         selectionMode="single"
+                         selection="#{useraccessController.selected}">
+                <!--
+                         To disable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{useraccessController.items}"
+                         lazy="false"
+                         rowKey="HASH{item.userAccessID}"
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:UseraccessDataTableContextMenu" listener="#{useraccessController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:UseraccessDataTableContextMenu" listener="#{useraccessController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{useraccessController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('UseraccessListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.userAccessID}" filterBy="#{item.userAccessID}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListUseraccessTitle_userAccessID}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.userAccessID}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.description}" filterBy="#{item.description}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListUseraccessTitle_description}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.description}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.active}" filterBy="#{item.active}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListUseraccessTitle_active}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="active" value="#{item.active}" title="#{myBundle.EditUseraccessTitle_active}"  disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.userID.userName}" filterBy="#{item.userID.userName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListUseraccessTitle_userID}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.userID.userName}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.accessID.accessName}" filterBy="#{item.accessID.accessName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListUseraccessTitle_accessID}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.accessID.accessName}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{useraccessController.prepareCreate}" update=":UseraccessCreateForm" oncomplete="PF('UseraccessCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":UseraccessViewForm" oncomplete="PF('UseraccessViewDialog').show()" disabled="#{empty useraccessController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":UseraccessEditForm" oncomplete="PF('UseraccessEditDialog').show()" disabled="#{empty useraccessController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{useraccessController.delete}" update=":growl,datalist" disabled="#{empty useraccessController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

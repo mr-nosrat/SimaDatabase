@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaterialsCreateDlg" widgetVar="MaterialsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateMaterialsTitle}" closeOnEscape="true">
+
+            <h:form id="MaterialsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{materialsController.selected != null}" style="direction: rtl;">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateMaterialsLabel_materialID}" for="materialID" />
+                        <p:inputText id="materialID" value="#{materialsController.selected.materialID}" title="#{myBundle.CreateMaterialsTitle_materialID}" required="true" requiredMessage="#{myBundle.CreateMaterialsRequiredMessage_materialID}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateMaterialsLabel_materialName}" for="materialName" />
+                        <p:inputText id="materialName" value="#{materialsController.selected.materialName}" title="#{myBundle.CreateMaterialsTitle_materialName}" required="true" requiredMessage="#{myBundle.CreateMaterialsRequiredMessage_materialName}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateMaterialsLabel_count}" for="count" />
+                        <p:inputText id="count" value="#{materialsController.selected.count}" title="#{myBundle.CreateMaterialsTitle_count}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateMaterialsLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{materialsController.selected.description}" title="#{myBundle.CreateMaterialsTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.CreateMaterialsLabel_locationID}" for="locationID" />
+                        <p:selectOneMenu id="locationID" value="#{materialsController.selected.locationID}"  converter="locationsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{locationsController.items}"
+                                           var="locationIDItem"
+                                           itemValue="#{locationIDItem}"
+                                           itemLabel="#{locationIDItem.locationName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{materialsController.saveNew}" value="#{myBundle.Save}" update="display,:MaterialsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MaterialsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('MaterialsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

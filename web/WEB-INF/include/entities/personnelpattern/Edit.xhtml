@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="PersonnelpatternEditDlg" widgetVar="PersonnelpatternEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditPersonnelpatternTitle}" closeOnEscape="true">
+
+            <h:form id="PersonnelpatternEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{personnelpatternController.selected != null}" style="direction: rtl;">
+
+
+                        <h:outputLabel value="#{myBundle.EditPersonnelpatternLabel_personnelpatternID}" for="personnelpatternID" />
+                        <h:outputText id="personnelpatternID" value="#{personnelpatternController.selected.personnelpatternID}" />
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelpatternLabel_unitID}" for="unitID" />
+                        <p:selectOneMenu id="unitID" value="#{personnelpatternController.selected.unitID}"  converter="unitsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{unitsController.items}"
+                                           var="unitIDItem"
+                                           itemValue="#{unitIDItem}"
+                                           itemLabel="#{unitIDItem.unitName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelpatternLabel_jobtitleID}" for="jobtitleID" />
+                        <p:selectOneMenu id="jobtitleID" value="#{personnelpatternController.selected.jobtitleID}"  converter="jobtitlesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{jobtitlesController.items}"
+                                           var="jobtitleIDItem"
+                                           itemValue="#{jobtitleIDItem}"
+                                           itemLabel="#{jobtitleIDItem.jobtitleName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelpatternLabel_personnelpatternDate}" for="personnelpatternDate" />
+                        <p:calendar id="personnelpatternDate" pattern="yyyy/MM/dd"  locale="fa"  mask="true" dir="ltr"  timeZone="Asia/Iran"    value="#{personnelpatternController.selected.personnelpatternDate}" title="#{myBundle.EditPersonnelpatternTitle_personnelpatternDate}" required="true" requiredMessage="#{myBundle.EditPersonnelpatternRequiredMessage_personnelpatternDate}"  />
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelpatternLabel_count}" for="count" />
+                        <p:inputText id="count" value="#{personnelpatternController.selected.count}" title="#{myBundle.EditPersonnelpatternTitle_count}"/>
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelpatternLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{personnelpatternController.selected.description}" title="#{myBundle.EditPersonnelpatternTitle_description}" />
+
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{personnelpatternController.save}" value="#{myBundle.Save}" update="display,:PersonnelpatternListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PersonnelpatternEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('PersonnelpatternEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PersonnelsViewDlg" widgetVar="PersonnelsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewPersonnelsTitle}" closeOnEscape="true">
+
+            <h:form id="PersonnelsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" columnClasses="column" rendered="#{personnelsController.selected != null}" style="direction: rtl;">
+                        <h:outputText value="#{myBundle.ViewPersonnelsLabel_personnelID}"/>
+                        <h:outputText value="#{personnelsController.selected.personnelID}" title="#{myBundle.ViewPersonnelsTitle_personnelID}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelsLabel_personnelFamily}"/>
+                        <h:outputText value="#{personnelsController.selected.personnelFamily}" title="#{myBundle.ViewPersonnelsTitle_personnelFamily}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelsLabel_personnelName}"/>
+                        <h:outputText value="#{personnelsController.selected.personnelName}" title="#{myBundle.ViewPersonnelsTitle_personnelName}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelsLabel_injuryRate}"/>
+                        <h:outputText value="#{personnelsController.selected.injuryRate}" title="#{myBundle.ViewPersonnelsTitle_injuryRate}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelsLabel_description}"/>
+                        <h:outputText value="#{personnelsController.selected.description}" title="#{myBundle.ViewPersonnelsTitle_description}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelsLabel_personnelCode}"/>
+                        <h:outputText value="#{personnelsController.selected.personnelCode}" title="#{myBundle.ViewPersonnelsTitle_personnelCode}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelsLabel_unit}"/>
+                        <h:outputText value="#{personnelsController.selected.unit}" title="#{myBundle.ViewPersonnelsTitle_unit}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelsLabel_birthDate}"/>
+                        <h:outputText value="#{personnelsController.selected.birthDate}" title="#{myBundle.ViewPersonnelsTitle_birthDate}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelsLabel_birthLocation}"/>
+                        <h:outputText value="#{personnelsController.selected.birthLocation}" title="#{myBundle.ViewPersonnelsTitle_birthLocation}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelsLabel_employeeDate}"/>
+                        <h:outputText value="#{personnelsController.selected.employeeDate}" title="#{myBundle.ViewPersonnelsTitle_employeeDate}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelsLabel_employeeStatus}"/>
+                        <h:outputText value="#{personnelsController.selected.employeeStatus}" title="#{myBundle.ViewPersonnelsTitle_employeeStatus}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelsLabel_educationLevel}"/>
+                        <h:outputText value="#{personnelsController.selected.educationLevel}" title="#{myBundle.ViewPersonnelsTitle_educationLevel}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelsLabel_educationDate}"/>
+                        <h:outputText value="#{personnelsController.selected.educationDate}" title="#{myBundle.ViewPersonnelsTitle_educationDate}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelsLabel_educationLocation}"/>
+                        <h:outputText value="#{personnelsController.selected.educationLocation}" title="#{myBundle.ViewPersonnelsTitle_educationLocation}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelsLabel_educationCourse}"/>
+                        <h:outputText value="#{personnelsController.selected.educationCourse}" title="#{myBundle.ViewPersonnelsTitle_educationCourse}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelsLabel_actionID}"/>
+                        <h:outputText value="#{personnelsController.selected.actionID}" title="#{myBundle.ViewPersonnelsTitle_actionID}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelsLabel_reserve}"/>
+                        <h:selectBooleanCheckbox id="reserve" value="#{personnelsController.selected.reserve}" title="#{myBundle.EditPersonnelsTitle_reserve}"  disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelsLabel_phone}"/>
+                        <h:outputText value="#{personnelsController.selected.phone}" title="#{myBundle.ViewPersonnelsTitle_phone}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelsLabel_address}"/>
+                        <h:outputText value="#{personnelsController.selected.address}" title="#{myBundle.ViewPersonnelsTitle_address}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelsLabel_confirm}"/>
+                        <h:selectBooleanCheckbox id="confirm" value="#{personnelsController.selected.confirm}" title="#{myBundle.EditPersonnelsTitle_confirm}"  disabled="true"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelsLabel_active}"/>
+                        <h:selectBooleanCheckbox id="active" value="#{personnelsController.selected.active}" title="#{myBundle.EditPersonnelsTitle_active}"  disabled="true"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('PersonnelsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

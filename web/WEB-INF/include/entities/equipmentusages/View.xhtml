@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EquipmentusagesViewDlg" widgetVar="EquipmentusagesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewEquipmentusagesTitle}" closeOnEscape="true">
+
+            <h:form id="EquipmentusagesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{equipmentusagesController.selected != null}" style="direction: rtl;">
+
+                        <h:outputText value="#{myBundle.ViewEquipmentusagesLabel_equipmentusageID}"/>
+                        <h:outputText value="#{equipmentusagesController.selected.equipmentusageID}" title="#{myBundle.ViewEquipmentusagesTitle_equipmentusageID}"/>
+
+                        <h:outputText value="#{myBundle.ViewEquipmentusagesLabel_equipmentID}"/>
+                        <h:outputText value="#{equipmentusagesController.selected.equipmentID}" title="#{myBundle.ViewEquipmentusagesTitle_equipmentID}"/>
+
+                        <h:outputText value="#{myBundle.ViewEquipmentusagesLabel_estateNumber}"/>
+                        <h:outputText value="#{equipmentusagesController.selected.estateNumber}" title="#{myBundle.ViewEquipmentusagesTitle_estateNumber}"/>
+
+                        <h:outputText value="#{myBundle.ViewEquipmentusagesLabel_technicalNumber}"/>
+                        <h:outputText value="#{equipmentusagesController.selected.technicalNumber}" title="#{myBundle.ViewEquipmentusagesTitle_technicalNumber}"/>
+
+                        <h:outputText value="#{myBundle.ViewEquipmentusagesLabel_description}"/>
+                        <h:outputText value="#{equipmentusagesController.selected.description}" title="#{myBundle.ViewEquipmentusagesTitle_description}"/>
+
+                        <h:outputText value="#{myBundle.ViewEquipmentusagesLabel_unitlID}"/>
+                        <h:outputText value="#{equipmentusagesController.selected.unitlID.unitName}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('EquipmentusagesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

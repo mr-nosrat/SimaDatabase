@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="PersonnelsEditDlg" widgetVar="PersonnelsEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditPersonnelsTitle}" closeOnEscape="true">
+
+            <h:form id="PersonnelsEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="4" columnClasses="column" rendered="#{personnelsController.selected != null}" style="direction: rtl;">
+
+                        <h:outputLabel value="#{myBundle.EditPersonnelsLabel_personnelID}" for="personnelID" />
+                        <h:outputText id="personnelID" value="#{personnelsController.selected.personnelID}" />
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelsLabel_personnelFamily}" for="personnelFamily" />
+                        <p:inputText id="personnelFamily" value="#{personnelsController.selected.personnelFamily}" title="#{myBundle.EditPersonnelsTitle_personnelFamily}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelsLabel_personnelName}" for="personnelName" />
+                        <p:inputText id="personnelName" value="#{personnelsController.selected.personnelName}" title="#{myBundle.EditPersonnelsTitle_personnelName}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelsLabel_injuryRate}" for="injuryRate" />
+                        <p:inputText id="injuryRate" value="#{personnelsController.selected.injuryRate}" title="#{myBundle.EditPersonnelsTitle_injuryRate}"/>
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelsLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{personnelsController.selected.description}" title="#{myBundle.EditPersonnelsTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelsLabel_personnelCode}" for="personnelCode" />
+                        <p:inputText id="personnelCode" value="#{personnelsController.selected.personnelCode}" title="#{myBundle.EditPersonnelsTitle_personnelCode}" size="6" maxlength="6"/>
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelsLabel_unit}" for="unit" />
+                        <p:inputText id="unit" value="#{personnelsController.selected.unit}" title="#{myBundle.EditPersonnelsTitle_unit}" size="50" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelsLabel_birthDate}" for="birthDate" />
+                        <p:inputText id="birthDate" value="#{personnelsController.selected.birthDate}" title="#{myBundle.EditPersonnelsTitle_birthDate}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelsLabel_birthLocation}" for="birthLocation" />
+                        <p:inputText id="birthLocation" value="#{personnelsController.selected.birthLocation}" title="#{myBundle.EditPersonnelsTitle_birthLocation}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelsLabel_employeeDate}" for="employeeDate" />
+                        <p:inputText id="employeeDate" value="#{personnelsController.selected.employeeDate}" title="#{myBundle.EditPersonnelsTitle_employeeDate}" size="50" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelsLabel_employeeStatus}" for="employeeStatus" />
+                        <p:inputText id="employeeStatus" value="#{personnelsController.selected.employeeStatus}" title="#{myBundle.EditPersonnelsTitle_employeeStatus}"/>
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelsLabel_educationLevel}" for="educationLevel" />
+                        <p:inputText id="educationLevel" value="#{personnelsController.selected.educationLevel}" title="#{myBundle.EditPersonnelsTitle_educationLevel}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelsLabel_educationDate}" for="educationDate" />
+                        <p:inputText id="educationDate" value="#{personnelsController.selected.educationDate}" title="#{myBundle.EditPersonnelsTitle_educationDate}" size="50" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelsLabel_educationLocation}" for="educationLocation" />
+                        <p:inputText id="educationLocation" value="#{personnelsController.selected.educationLocation}" title="#{myBundle.EditPersonnelsTitle_educationLocation}" size="50" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelsLabel_educationCourse}" for="educationCourse" />
+                        <p:inputText id="educationCourse" value="#{personnelsController.selected.educationCourse}" title="#{myBundle.EditPersonnelsTitle_educationCourse}" size="50" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelsLabel_actionID}" for="actionID" />
+                        <p:inputText id="actionID" value="#{personnelsController.selected.actionID}" title="#{myBundle.EditPersonnelsTitle_actionID}"/>
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelsLabel_reserve}" for="reserve" />
+                        <p:selectBooleanCheckbox id="reserve" value="#{personnelsController.selected.reserve}" />
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelsLabel_phone}" for="phone" />
+                        <p:inputText id="phone" value="#{personnelsController.selected.phone}" title="#{myBundle.EditPersonnelsTitle_phone}" size="80" maxlength="80"/>
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelsLabel_address}" for="address" />
+                        <p:inputText id="address" value="#{personnelsController.selected.address}" title="#{myBundle.EditPersonnelsTitle_address}" size="50" maxlength="200"/>
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelsLabel_confirm}" for="confirm" />
+                        <p:selectBooleanCheckbox id="confirm" value="#{personnelsController.selected.confirm}" />
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelsLabel_active}" for="active" />
+                        <p:selectBooleanCheckbox id="active" value="#{personnelsController.selected.active}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{personnelsController.save}" value="#{myBundle.Save}" update="display,:PersonnelsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PersonnelsEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('PersonnelsEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

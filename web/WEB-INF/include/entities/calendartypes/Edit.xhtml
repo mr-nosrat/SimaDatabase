@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="CalendartypesEditDlg" widgetVar="CalendartypesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditCalendartypesTitle}" closeOnEscape="true">
+
+            <h:form id="CalendartypesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{calendartypesController.selected != null}" style="direction: rtl;">
+
+
+                        <h:outputLabel value="#{myBundle.EditCalendartypesLabel_calendartypeID}" for="calendartypeID" />
+                        <h:outputText id="calendartypeID" value="#{calendartypesController.selected.calendartypeID}" />
+
+                        <p:outputLabel value="#{myBundle.EditCalendartypesLabel_calendartypeName}" for="calendartypeName" />
+                        <p:inputText id="calendartypeName" value="#{calendartypesController.selected.calendartypeName}" title="#{myBundle.EditCalendartypesTitle_calendartypeName}" required="true" requiredMessage="#{myBundle.EditCalendartypesRequiredMessage_calendartypeName}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditCalendartypesLabel_calendartypeRate}" for="calendartypeRate" />
+                        <p:inputText id="calendartypeRate" value="#{calendartypesController.selected.calendartypeRate}" title="#{myBundle.EditCalendartypesTitle_calendartypeRate}"/>
+
+                        <p:outputLabel value="#{myBundle.EditCalendartypesLabel_calendartypeEmployee}" for="calendartypeEmployee" />
+                        <p:inputText id="calendartypeEmployee" value="#{calendartypesController.selected.calendartypeEmployee}" title="#{myBundle.EditCalendartypesTitle_calendartypeEmployee}"/>
+
+                        <p:outputLabel value="#{myBundle.EditCalendartypesLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{calendartypesController.selected.description}" title="#{myBundle.EditCalendartypesTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.EditCalendartypesLabel_active}" for="active" />
+                        <p:selectBooleanCheckbox id="active" value="#{calendartypesController.selected.active}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{calendartypesController.save}" value="#{myBundle.Save}" update="display,:CalendartypesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CalendartypesEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('CalendartypesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

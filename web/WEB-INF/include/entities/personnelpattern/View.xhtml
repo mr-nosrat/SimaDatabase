@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PersonnelpatternViewDlg" widgetVar="PersonnelpatternViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewPersonnelpatternTitle}" closeOnEscape="true">
+
+            <h:form id="PersonnelpatternViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{personnelpatternController.selected != null}" style="direction: rtl;">
+
+                        <h:outputText value="#{myBundle.ViewPersonnelpatternLabel_personnelpatternID}"/>
+                        <h:outputText value="#{personnelpatternController.selected.personnelpatternID}" title="#{myBundle.ViewPersonnelpatternTitle_personnelpatternID}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelpatternLabel_unitID}"/>
+                        <h:outputText value="#{personnelpatternController.selected.unitID.unitName}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelpatternLabel_jobtitleID}"/>
+                        <h:outputText value="#{personnelpatternController.selected.jobtitleID.jobtitleName}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelpatternLabel_personnelpatternDate}"/>
+                        <h:outputText value="#{personnelpatternController.selected.personnelpatternDate}" title="#{myBundle.ViewPersonnelpatternTitle_personnelpatternDate}">
+                            <f:convertDateTime pattern="yyyy/MM/dd" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelpatternLabel_count}"/>
+                        <h:outputText value="#{personnelpatternController.selected.count}" title="#{myBundle.ViewPersonnelpatternTitle_count}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonnelpatternLabel_description}"/>
+                        <h:outputText value="#{personnelpatternController.selected.description}" title="#{myBundle.ViewPersonnelpatternTitle_description}"/>
+
+
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('PersonnelpatternViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

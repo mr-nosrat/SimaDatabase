@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="MaterialsListForm">
+
+        <p:panel header="#{myBundle.ListMaterialsTitle}">
+            <p:contextMenu id="MaterialsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('MaterialsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('MaterialsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('MaterialsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('MaterialsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.MaterialsMenuItem_locationID}" icon="ui-icon-search"  actionListener="#{materialsController.prepareLocationID}" update=":LocationsViewForm" oncomplete="PF('LocationsViewDialog').show()" disabled="#{empty materialsController.selected.locationID}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{materialsController.lazyItems}"
+                         lazy="true"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"                          paginatorTemplate="{LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink} {RowsPerPageDropdown}"                          paginatorPosition="bottom"                          style="direction: rtl;" 
+                         selectionMode="single"
+                         selection="#{materialsController.selected}">
+                <!--
+                         To disable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{materialsController.items}"
+                         lazy="false"
+                         rowKey="HASH{item.materialID}"
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MaterialsDataTableContextMenu" listener="#{materialsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MaterialsDataTableContextMenu" listener="#{materialsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{materialsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('MaterialsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.materialID}" filterBy="#{item.materialID}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMaterialsTitle_materialID}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.materialID}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.materialName}" filterBy="#{item.materialName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMaterialsTitle_materialName}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.materialName}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.count}" filterBy="#{item.count}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMaterialsTitle_count}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.count}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.description}" filterBy="#{item.description}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMaterialsTitle_description}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.description}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.locationID.locationName}" filterBy="#{item.locationID.locationName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMaterialsTitle_locationID}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.locationID.locationName}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{materialsController.prepareCreate}" update=":MaterialsCreateForm" oncomplete="PF('MaterialsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":MaterialsViewForm" oncomplete="PF('MaterialsViewDialog').show()" disabled="#{empty materialsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":MaterialsEditForm" oncomplete="PF('MaterialsEditDialog').show()" disabled="#{empty materialsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{materialsController.delete}" update=":growl,datalist" disabled="#{empty materialsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProgramsCreateDlg" widgetVar="ProgramsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateProgramsTitle}" closeOnEscape="true">
+
+            <h:form id="ProgramsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{programsController.selected != null}" style="direction: rtl;">
+                    <p:panelGrid columns="4" columnClasses="column">
+                        <p:outputLabel value="#{myBundle.CreateProgramsLabel_unitID}" for="unitID" />
+                        <p:selectOneMenu id="unitID" value="#{programsController.selected.unitID}"  converter="unitsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{unitsController.items}"
+                                           var="unitIDItem"
+                                           itemValue="#{unitIDItem}"
+                                           itemLabel="#{unitIDItem.unitName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateProgramsLabel_subjectID}" for="subjectID" />
+                        <p:selectOneMenu id="subjectID" value="#{programsController.selected.subjectID}"  converter="subjectsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{subjectsController.items}"
+                                           var="subjectIDItem"
+                                           itemValue="#{subjectIDItem}"
+                                           itemLabel="#{subjectIDItem.subjectName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateProgramsLabel_programtypeID}" for="programtypeID" />
+                        <p:selectOneMenu id="programtypeID" value="#{programsController.selected.programtypeID}"  converter="programtypesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{programtypesController.items}"
+                                           var="programtypeIDItem"
+                                           itemValue="#{programtypeIDItem}"
+                                           itemLabel="#{programtypeIDItem.programtypeName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateProgramsLabel_producerID}" for="producerID" />
+                        <p:selectOneMenu id="producerID" value="#{programsController.selected.producerID}"  converter="personnelsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{personnelsController.itemsTop}"
+                                           var="producerIDItem"
+                                           itemValue="#{producerIDItem}"
+                                           itemLabel="#{producerIDItem.personnelFamily.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateProgramsLabel_directorID}" for="directorID" />
+                        <p:selectOneMenu id="directorID" value="#{programsController.selected.directorID}"  converter="personnelsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{personnelsController.itemsTop}"
+                                           var="directorIDItem"
+                                           itemValue="#{directorIDItem}"
+                                           itemLabel="#{directorIDItem.personnelFamily.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateProgramsLabel_productgroupID}" for="productgroupID" />
+                        <p:selectOneMenu id="productgroupID" value="#{programsController.selected.productgroupID}"  converter="programgroupsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{programgroupsController.items}"
+                                           var="productgroupIDItem"
+                                           itemValue="#{productgroupIDItem}"
+                                           itemLabel="#{productgroupIDItem.programgroupName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateProgramsLabel_programName}" for="programName" />
+                        <p:inputText id="programName" value="#{programsController.selected.programName}" title="#{myBundle.CreateProgramsTitle_programName}" size="50" maxlength="200"/>
+
+                        <p:outputLabel value="#{myBundle.CreateProgramsLabel_programCount}" for="programCount" />
+                        <p:inputText id="programCount" value="#{programsController.selected.programCount}" title="#{myBundle.CreateProgramsTitle_programCount}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateProgramsLabel_programTime}" for="programTime" />
+                        <p:inputText id="programTime" value="#{programsController.selected.programTime}" title="#{myBundle.CreateProgramsTitle_programTime}" size="9" maxlength="9"/>
+
+                        <p:outputLabel value="#{myBundle.CreateProgramsLabel_estimateNumber}" for="estimateNumber" />
+                        <p:inputText id="estimateNumber" value="#{programsController.selected.estimateNumber}" title="#{myBundle.CreateProgramsTitle_estimateNumber}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{myBundle.CreateProgramsLabel_archiveNumber}" for="archiveNumber" />
+                        <p:inputText id="archiveNumber" value="#{programsController.selected.archiveNumber}" title="#{myBundle.CreateProgramsTitle_archiveNumber}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{myBundle.CreateProgramsLabel_programPrefixCode}" for="programPrefixCode" />
+                        <p:inputText id="programPrefixCode" value="#{programsController.selected.programPrefixCode}" title="#{myBundle.CreateProgramsTitle_programPrefixCode}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.CreateProgramsLabel_programCode}" for="programCode" />
+                        <p:inputText id="programCode" value="#{programsController.selected.programCode}" title="#{myBundle.CreateProgramsTitle_programCode}" size="9" maxlength="9"/>
+
+                        <p:outputLabel value="#{myBundle.CreateProgramsLabel_amendmentEstimate}" for="amendmentEstimate" />
+                        <p:inputText id="amendmentEstimate" value="#{programsController.selected.amendmentEstimate}" title="#{myBundle.CreateProgramsTitle_amendmentEstimate}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.CreateProgramsLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{programsController.selected.description}" title="#{myBundle.CreateProgramsTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.CreateProgramsLabel_active}" for="active" />
+                        <p:selectBooleanCheckbox id="active" value="#{programsController.selected.active}" />
+
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{programsController.saveNew}" value="#{myBundle.Save}" update="display,:ProgramsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ProgramsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ProgramsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

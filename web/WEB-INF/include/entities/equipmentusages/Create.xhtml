@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EquipmentusagesCreateDlg" widgetVar="EquipmentusagesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateEquipmentusagesTitle}" closeOnEscape="true">
+
+            <h:form id="EquipmentusagesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{equipmentusagesController.selected != null}" style="direction: rtl;">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateEquipmentusagesLabel_equipmentID}" for="equipmentID" />
+                        <p:inputText id="equipmentID" value="#{equipmentusagesController.selected.equipmentID}" title="#{myBundle.CreateEquipmentusagesTitle_equipmentID}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEquipmentusagesLabel_estateNumber}" for="estateNumber" />
+                        <p:inputText id="estateNumber" value="#{equipmentusagesController.selected.estateNumber}" title="#{myBundle.CreateEquipmentusagesTitle_estateNumber}" required="true" requiredMessage="#{myBundle.CreateEquipmentusagesRequiredMessage_estateNumber}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEquipmentusagesLabel_technicalNumber}" for="technicalNumber" />
+                        <p:inputText id="technicalNumber" value="#{equipmentusagesController.selected.technicalNumber}" title="#{myBundle.CreateEquipmentusagesTitle_technicalNumber}" required="true" requiredMessage="#{myBundle.CreateEquipmentusagesRequiredMessage_technicalNumber}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.CreateEquipmentusagesLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{equipmentusagesController.selected.description}" title="#{myBundle.CreateEquipmentusagesTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.CreateEquipmentusagesLabel_unitlID}" for="unitlID" />
+                        <p:selectOneMenu id="unitlID" value="#{equipmentusagesController.selected.unitlID}"  converter="unitsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{unitsController.items}"
+                                           var="unitlIDItem"
+                                           itemValue="#{unitlIDItem}"
+                                           itemLabel="#{unitlIDItem.unitName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{equipmentusagesController.saveNew}" value="#{myBundle.Save}" update="display,:EquipmentusagesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('EquipmentusagesCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('EquipmentusagesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

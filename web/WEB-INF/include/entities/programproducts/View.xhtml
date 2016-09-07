@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProgramproductsViewDlg" widgetVar="ProgramproductsViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewProgramproductsTitle}" closeOnEscape="true">
+
+            <h:form id="ProgramproductsViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{programproductsController.selected != null}" style="direction: rtl;">
+                        <h:outputText value="#{myBundle.ViewProgramproductsLabel_programproductID}"/>
+                        <h:outputText value="#{programproductsController.selected.programproductID}" title="#{myBundle.ViewProgramproductsTitle_programproductID}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramproductsLabel_programproductsName}"/>
+                        <h:outputText value="#{programproductsController.selected.programproductsName}" title="#{myBundle.ViewProgramproductsTitle_programproductsName}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramproductsLabel_unitID}"/>
+                        <h:outputText value="#{programproductsController.selected.unitID.unitName}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramproductsLabel_programID}"/>
+                        <h:outputText value="#{programproductsController.selected.programID.programName}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramproductsLabel_locationID}"/>
+                        <h:outputText value="#{programproductsController.selected.locationID.locationName}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramproductsLabel_calendartypeID}"/>
+                        <h:outputText value="#{programproductsController.selected.calendartypeID.calendartypeName}"/>
+
+
+                        <h:outputText value="#{myBundle.ViewProgramproductsLabel_startDate}"/>
+                        <h:outputText value="#{programproductsController.selected.startDate}" title="#{myBundle.ViewProgramproductsTitle_startDate}">
+                            <f:convertDateTime pattern="yyyy/MM/dd" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewProgramproductsLabel_endDate}"/>
+                        <h:outputText value="#{programproductsController.selected.endDate}" title="#{myBundle.ViewProgramproductsTitle_endDate}">
+                            <f:convertDateTime pattern="yyyy/MM/dd" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewProgramproductsLabel_startTime}"/>
+                        <h:outputText value="#{programproductsController.selected.startTime}" title="#{myBundle.ViewProgramproductsTitle_startTime}">
+                            <f:convertDateTime  pattern="HH:mm" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewProgramproductsLabel_endTime}"/>
+                        <h:outputText value="#{programproductsController.selected.endTime}" title="#{myBundle.ViewProgramproductsTitle_endTime}">
+                            <f:convertDateTime  pattern="HH:mm" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewProgramproductsLabel_description}"/>
+                        <h:outputText value="#{programproductsController.selected.description}" title="#{myBundle.ViewProgramproductsTitle_description}"/>
+
+
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('ProgramproductsViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

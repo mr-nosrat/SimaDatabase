@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="PersonnelsListForm">
+
+        <p:panel header="#{myBundle.ListPersonnelsTitle}">
+            <p:contextMenu id="PersonnelsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('PersonnelsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('PersonnelsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('PersonnelsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('PersonnelsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.PersonnelsMenuItem_programsList}" icon="ui-icon-search"  action="#{personnelsController.navigateProgramsList}" disabled="#{empty personnelsController.selected.programsList}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.PersonnelsMenuItem_programsList1}" icon="ui-icon-search"  action="#{personnelsController.navigateProgramsList1}" disabled="#{empty personnelsController.selected.programsList1}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.PersonnelsMenuItem_personnelafyshesList}" icon="ui-icon-search"  action="#{personnelsController.navigatePersonnelafyshesList}" disabled="#{empty personnelsController.selected.personnelafyshesList}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.PersonnelsMenuItem_productpersonnelafyshesList}" icon="ui-icon-search"  action="#{personnelsController.navigateProductpersonnelafyshesList}" disabled="#{empty personnelsController.selected.productpersonnelafyshesList}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{personnelsController.lazyItems}"
+                         lazy="true"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"                          paginatorTemplate="{LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink} {RowsPerPageDropdown}"                          paginatorPosition="bottom"                          style="direction: rtl;" 
+                         selectionMode="single"
+                         selection="#{personnelsController.selected}">
+                <!--
+                         To disable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{personnelsController.itemsTop}"
+                         lazy="false"
+                         rowKey="HASH{item.personnelID}"
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:PersonnelsDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:PersonnelsDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('PersonnelsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.personnelID}" filterBy="#{item.personnelID}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPersonnelsTitle_personnelID}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.personnelID}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.personnelFamily}" filterBy="#{item.personnelFamily}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPersonnelsTitle_personnelFamily}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.personnelFamily}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.personnelName}" filterBy="#{item.personnelName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPersonnelsTitle_personnelName}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.personnelName}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.injuryRate}" filterBy="#{item.injuryRate}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPersonnelsTitle_injuryRate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.injuryRate}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.description}" filterBy="#{item.description}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPersonnelsTitle_description}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.description}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.personnelCode}" filterBy="#{item.personnelCode}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPersonnelsTitle_personnelCode}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.personnelCode}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.unit}" filterBy="#{item.unit}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListPersonnelsTitle_unit}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.unit}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.birthDate}" filterBy="#{item.birthDate}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListPersonnelsTitle_birthDate}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.birthDate}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.birthLocation}" filterBy="#{item.birthLocation}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListPersonnelsTitle_birthLocation}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.birthLocation}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.employeeDate}" filterBy="#{item.employeeDate}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListPersonnelsTitle_employeeDate}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.employeeDate}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.employeeStatus}" filterBy="#{item.employeeStatus}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListPersonnelsTitle_employeeStatus}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.employeeStatus}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.educationLevel}" filterBy="#{item.educationLevel}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListPersonnelsTitle_educationLevel}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.educationLevel}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.educationDate}" filterBy="#{item.educationDate}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListPersonnelsTitle_educationDate}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.educationDate}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.educationLocation}" filterBy="#{item.educationLocation}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListPersonnelsTitle_educationLocation}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.educationLocation}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.educationCourse}" filterBy="#{item.educationCourse}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListPersonnelsTitle_educationCourse}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.educationCourse}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.actionID}" filterBy="#{item.actionID}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListPersonnelsTitle_actionID}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.actionID}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.reserve}" filterBy="#{item.reserve}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListPersonnelsTitle_reserve}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="reserve" value="#{item.reserve}" title="#{myBundle.EditPersonnelsTitle_reserve}"  disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.phone}" filterBy="#{item.phone}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListPersonnelsTitle_phone}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.phone}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.address}" filterBy="#{item.address}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListPersonnelsTitle_address}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.address}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.confirm}" filterBy="#{item.confirm}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListPersonnelsTitle_confirm}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="confirm" value="#{item.confirm}" title="#{myBundle.EditPersonnelsTitle_confirm}"  disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.active}" filterBy="#{item.active}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListPersonnelsTitle_active}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="active" value="#{item.active}" title="#{myBundle.EditPersonnelsTitle_active}"  disabled="true"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{personnelsController.prepareCreate}" update=":PersonnelsCreateForm" oncomplete="PF('PersonnelsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":PersonnelsViewForm" oncomplete="PF('PersonnelsViewDialog').show()" disabled="#{empty personnelsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":PersonnelsEditForm" oncomplete="PF('PersonnelsEditDialog').show()" disabled="#{empty personnelsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{personnelsController.delete}" update=":growl,datalist" disabled="#{empty personnelsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

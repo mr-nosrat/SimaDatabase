@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="PersonnelafyshesEditDlg" widgetVar="PersonnelafyshesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditPersonnelafyshesTitle}" closeOnEscape="true">
+
+            <h:form id="PersonnelafyshesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{personnelafyshesController.selected != null}" style="direction: rtl;">
+
+
+                        <h:outputLabel value="#{myBundle.EditPersonnelafyshesLabel_personnelAfyshID}" for="personnelAfyshID" />
+                        <h:outputText id="personnelAfyshID" value="#{personnelafyshesController.selected.personnelAfyshID}" />
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelafyshesLabel_afyshDate}" for="afyshDate" />
+                        <p:calendar id="afyshDate" pattern="yyyy/MM/dd"  locale="fa"  mask="true" dir="ltr"  timeZone="Asia/Iran"    value="#{personnelafyshesController.selected.afyshDate}" title="#{myBundle.EditPersonnelafyshesTitle_afyshDate}" required="true" requiredMessage="#{myBundle.EditPersonnelafyshesRequiredMessage_afyshDate}"  />
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelafyshesLabel_startTime}" for="startTime" />
+                        <p:calendar id="startTime"  pattern="HH:mm"  mask="true" dir="ltr" showOn="none" timeZone="Asia/Iran"       value="#{personnelafyshesController.selected.startTime}" title="#{myBundle.EditPersonnelafyshesTitle_startTime}" required="true" requiredMessage="#{myBundle.EditPersonnelafyshesRequiredMessage_startTime}"  />
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelafyshesLabel_endTime}" for="endTime" />
+                        <p:calendar id="endTime"  pattern="HH:mm"  mask="true" dir="ltr" showOn="none" timeZone="Asia/Iran"       value="#{personnelafyshesController.selected.endTime}" title="#{myBundle.EditPersonnelafyshesTitle_endTime}" required="true" requiredMessage="#{myBundle.EditPersonnelafyshesRequiredMessage_endTime}"  />
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelafyshesLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{personnelafyshesController.selected.description}" title="#{myBundle.EditPersonnelafyshesTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelafyshesLabel_locationID}" for="locationID" />
+                        <p:selectOneMenu id="locationID" value="#{personnelafyshesController.selected.locationID}" required="true" requiredMessage="#{myBundle.EditPersonnelafyshesRequiredMessage_locationID}" converter="locationsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{locationsController.items}"
+                                           var="locationIDItem"
+                                           itemValue="#{locationIDItem}"
+                                           itemLabel="#{locationIDItem.locationName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelafyshesLabel_calendartypeID}" for="calendartypeID" />
+                        <p:selectOneMenu id="calendartypeID" value="#{personnelafyshesController.selected.calendartypeID}" required="true" requiredMessage="#{myBundle.EditPersonnelafyshesRequiredMessage_calendartypeID}" converter="calendartypesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{calendartypesController.items}"
+                                           var="calendartypeIDItem"
+                                           itemValue="#{calendartypeIDItem}"
+                                           itemLabel="#{calendartypeIDItem.calendartypeName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelafyshesLabel_programID}" for="programID" />
+                        <p:selectOneMenu id="programID" value="#{personnelafyshesController.selected.programID}" required="true" requiredMessage="#{myBundle.EditPersonnelafyshesRequiredMessage_programID}" converter="programsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{programsController.itemsTop}"
+                                           var="programIDItem"
+                                           itemValue="#{programIDItem}"
+                                           itemLabel="#{programIDItem.programName.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditPersonnelafyshesLabel_personnelID}" for="personnelID" />
+                        <p:selectOneMenu id="personnelID" value="#{personnelafyshesController.selected.personnelID}" required="true" requiredMessage="#{myBundle.EditPersonnelafyshesRequiredMessage_personnelID}" converter="personnelsConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{personnelsController.itemsTop}"
+                                           var="personnelIDItem"
+                                           itemValue="#{personnelIDItem}"
+                                           itemLabel="#{personnelIDItem.personnelFamily.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{personnelafyshesController.save}" value="#{myBundle.Save}" update="display,:PersonnelafyshesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PersonnelafyshesEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('PersonnelafyshesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

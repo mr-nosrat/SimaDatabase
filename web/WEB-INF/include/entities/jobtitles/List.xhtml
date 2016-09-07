@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="JobtitlesListForm">
+
+        <p:panel header="#{myBundle.ListJobtitlesTitle}">
+            <p:contextMenu id="JobtitlesDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('JobtitlesListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('JobtitlesListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('JobtitlesListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('JobtitlesListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.JobtitlesMenuItem_personnelpatternList}" icon="ui-icon-search"  action="#{jobtitlesController.navigatePersonnelpatternList}" disabled="#{empty jobtitlesController.selected.personnelpatternList}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{jobtitlesController.lazyItems}"
+                         lazy="true"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"                          paginatorTemplate="{LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink} {RowsPerPageDropdown}"                          paginatorPosition="bottom"                          style="direction: rtl;" 
+                         selectionMode="single"
+                         selection="#{jobtitlesController.selected}">
+                <!--
+                         To disable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{jobtitlesController.items}"
+                         lazy="false"
+                         rowKey="HASH{item.jobtitleID}"
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:JobtitlesDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:JobtitlesDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('JobtitlesListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.jobtitleID}" filterBy="#{item.jobtitleID}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListJobtitlesTitle_jobtitleID}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.jobtitleID}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.jobtitleName}" filterBy="#{item.jobtitleName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListJobtitlesTitle_jobtitleName}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.jobtitleName}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.description}" filterBy="#{item.description}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListJobtitlesTitle_description}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.description}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.active}" filterBy="#{item.active}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListJobtitlesTitle_active}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="active" value="#{item.active}" title="#{myBundle.EditJobtitlesTitle_active}"  disabled="true"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{jobtitlesController.prepareCreate}" update=":JobtitlesCreateForm" oncomplete="PF('JobtitlesCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":JobtitlesViewForm" oncomplete="PF('JobtitlesViewDialog').show()" disabled="#{empty jobtitlesController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":JobtitlesEditForm" oncomplete="PF('JobtitlesEditDialog').show()" disabled="#{empty jobtitlesController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{jobtitlesController.delete}" update=":growl,datalist" disabled="#{empty jobtitlesController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProgramtypesViewDlg" widgetVar="ProgramtypesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewProgramtypesTitle}" closeOnEscape="true">
+
+            <h:form id="ProgramtypesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{programtypesController.selected != null}" style="direction: rtl;">
+
+                        <h:outputText value="#{myBundle.ViewProgramtypesLabel_programtypeID}"/>
+                        <h:outputText value="#{programtypesController.selected.programtypeID}" title="#{myBundle.ViewProgramtypesTitle_programtypeID}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramtypesLabel_programtypeName}"/>
+                        <h:outputText value="#{programtypesController.selected.programtypeName}" title="#{myBundle.ViewProgramtypesTitle_programtypeName}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramtypesLabel_description}"/>
+                        <h:outputText value="#{programtypesController.selected.description}" title="#{myBundle.ViewProgramtypesTitle_description}"/>
+
+                        <h:outputText value="#{myBundle.ViewProgramtypesLabel_active}"/>
+                        <h:selectBooleanCheckbox id="active" value="#{programtypesController.selected.active}" title="#{myBundle.EditProgramtypesTitle_active}"  disabled="true"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('ProgramtypesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

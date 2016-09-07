@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PersonnelsCreateDlg" widgetVar="PersonnelsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreatePersonnelsTitle}" closeOnEscape="true">
+
+            <h:form id="PersonnelsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{personnelsController.selected != null}" style="direction: rtl;">
+                    <p:panelGrid columns="4" columnClasses="column">
+                        <p:outputLabel value="#{myBundle.CreatePersonnelsLabel_personnelFamily}" for="personnelFamily" />
+                        <p:inputText id="personnelFamily" value="#{personnelsController.selected.personnelFamily}" title="#{myBundle.CreatePersonnelsTitle_personnelFamily}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePersonnelsLabel_personnelName}" for="personnelName" />
+                        <p:inputText id="personnelName" value="#{personnelsController.selected.personnelName}" title="#{myBundle.CreatePersonnelsTitle_personnelName}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePersonnelsLabel_injuryRate}" for="injuryRate" />
+                        <p:inputText id="injuryRate" value="#{personnelsController.selected.injuryRate}" title="#{myBundle.CreatePersonnelsTitle_injuryRate}"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePersonnelsLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{personnelsController.selected.description}" title="#{myBundle.CreatePersonnelsTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.CreatePersonnelsLabel_personnelCode}" for="personnelCode" />
+                        <p:inputText id="personnelCode" value="#{personnelsController.selected.personnelCode}" title="#{myBundle.CreatePersonnelsTitle_personnelCode}" size="6" maxlength="6"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePersonnelsLabel_unit}" for="unit" />
+                        <p:inputText id="unit" value="#{personnelsController.selected.unit}" title="#{myBundle.CreatePersonnelsTitle_unit}" size="50" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePersonnelsLabel_birthDate}" for="birthDate" />
+                        <p:inputText id="birthDate" value="#{personnelsController.selected.birthDate}" title="#{myBundle.CreatePersonnelsTitle_birthDate}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePersonnelsLabel_birthLocation}" for="birthLocation" />
+                        <p:inputText id="birthLocation" value="#{personnelsController.selected.birthLocation}" title="#{myBundle.CreatePersonnelsTitle_birthLocation}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePersonnelsLabel_employeeDate}" for="employeeDate" />
+                        <p:inputText id="employeeDate" value="#{personnelsController.selected.employeeDate}" title="#{myBundle.CreatePersonnelsTitle_employeeDate}" size="50" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePersonnelsLabel_employeeStatus}" for="employeeStatus" />
+                        <p:inputText id="employeeStatus" value="#{personnelsController.selected.employeeStatus}" title="#{myBundle.CreatePersonnelsTitle_employeeStatus}"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePersonnelsLabel_educationLevel}" for="educationLevel" />
+                        <p:inputText id="educationLevel" value="#{personnelsController.selected.educationLevel}" title="#{myBundle.CreatePersonnelsTitle_educationLevel}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePersonnelsLabel_educationDate}" for="educationDate" />
+                        <p:inputText id="educationDate" value="#{personnelsController.selected.educationDate}" title="#{myBundle.CreatePersonnelsTitle_educationDate}" size="50" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePersonnelsLabel_educationLocation}" for="educationLocation" />
+                        <p:inputText id="educationLocation" value="#{personnelsController.selected.educationLocation}" title="#{myBundle.CreatePersonnelsTitle_educationLocation}" size="50" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePersonnelsLabel_educationCourse}" for="educationCourse" />
+                        <p:inputText id="educationCourse" value="#{personnelsController.selected.educationCourse}" title="#{myBundle.CreatePersonnelsTitle_educationCourse}" size="50" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePersonnelsLabel_actionID}" for="actionID" />
+                        <p:inputText id="actionID" value="#{personnelsController.selected.actionID}" title="#{myBundle.CreatePersonnelsTitle_actionID}"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePersonnelsLabel_reserve}" for="reserve" />
+                        <p:selectBooleanCheckbox id="reserve" value="#{personnelsController.selected.reserve}" />
+
+                        <p:outputLabel value="#{myBundle.CreatePersonnelsLabel_phone}" for="phone" />
+                        <p:inputText id="phone" value="#{personnelsController.selected.phone}" title="#{myBundle.CreatePersonnelsTitle_phone}" size="80" maxlength="80"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePersonnelsLabel_address}" for="address" />
+                        <p:inputText id="address" value="#{personnelsController.selected.address}" title="#{myBundle.CreatePersonnelsTitle_address}" size="50" maxlength="200"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePersonnelsLabel_confirm}" for="confirm" />
+                        <p:selectBooleanCheckbox id="confirm" value="#{personnelsController.selected.confirm}" />
+
+                        <p:outputLabel value="#{myBundle.CreatePersonnelsLabel_active}" for="active" />
+                        <p:selectBooleanCheckbox id="active" value="#{personnelsController.selected.active}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{personnelsController.saveNew}" value="#{myBundle.Save}" update="display,:PersonnelsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PersonnelsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('PersonnelsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

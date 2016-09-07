@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ProgramproductsListForm">
+
+        <p:panel header="#{myBundle.ListProgramproductsTitle}">
+            <p:contextMenu id="ProgramproductsDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('ProgramproductsListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('ProgramproductsListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('ProgramproductsListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('ProgramproductsListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.ProgramproductsMenuItem_productequipmetafyshesList}" icon="ui-icon-search"  action="#{programproductsController.navigateProductequipmetafyshesList}" disabled="#{empty programproductsController.selected.productequipmetafyshesList}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ProgramproductsMenuItem_unitID}" icon="ui-icon-search"  actionListener="#{programproductsController.prepareUnitID}" update=":UnitsViewForm" oncomplete="PF('UnitsViewDialog').show()" disabled="#{empty programproductsController.selected.unitID}"/>  
+                <p:menuitem value="#{myBundle.ProgramproductsMenuItem_programID}" icon="ui-icon-search"  actionListener="#{programproductsController.prepareProgramID}" update=":ProgramsViewForm" oncomplete="PF('ProgramsViewDialog').show()" disabled="#{empty programproductsController.selected.programID}"/>  
+                <p:menuitem value="#{myBundle.ProgramproductsMenuItem_locationID}" icon="ui-icon-search"  actionListener="#{programproductsController.prepareLocationID}" update=":LocationsViewForm" oncomplete="PF('LocationsViewDialog').show()" disabled="#{empty programproductsController.selected.locationID}"/>  
+                <p:menuitem value="#{myBundle.ProgramproductsMenuItem_calendartypeID}" icon="ui-icon-search"  actionListener="#{programproductsController.prepareCalendartypeID}" update=":CalendartypesViewForm" oncomplete="PF('CalendartypesViewDialog').show()" disabled="#{empty programproductsController.selected.calendartypeID}"/>  
+                <p:menuitem value="#{myBundle.ProgramproductsMenuItem_productpersonnelafyshesList}" icon="ui-icon-search"  action="#{programproductsController.navigateProductpersonnelafyshesList}" disabled="#{empty programproductsController.selected.productpersonnelafyshesList}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{programproductsController.lazyItems}"
+                         lazy="true"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"                          paginatorTemplate="{LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink} {RowsPerPageDropdown}"                          paginatorPosition="bottom"                          style="direction: rtl;" 
+                         selectionMode="single"
+                         selection="#{programproductsController.selected}">
+                <!--
+                         To disable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{programproductsController.items}"
+                         lazy="false"
+                         rowKey="HASH{item.programproductID}"
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ProgramproductsDataTableContextMenu" listener="#{programproductsController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ProgramproductsDataTableContextMenu" listener="#{programproductsController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{programproductsController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ProgramproductsListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.programproductID}" filterBy="#{item.programproductID}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProgramproductsTitle_programproductID}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.programproductID}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.programproductsName}" filterBy="#{item.programproductsName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProgramproductsTitle_programproductsName}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.programproductsName}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.programID.programName}" filterBy="#{item.programID.programName}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProgramproductsTitle_programID}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.programID.programName}"/>
+                </p:column>
+
+                <p:column sortBy="#{item.startDate}" filterBy="#{item.startDate}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProgramproductsTitle_startDate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.startDate}">
+                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.endDate}" filterBy="#{item.endDate}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProgramproductsTitle_endDate}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.endDate}">
+                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.startTime}" filterBy="#{item.startTime}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProgramproductsTitle_startTime}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.startTime}">
+                        <f:convertDateTime  pattern="HH:mm" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.endTime}" filterBy="#{item.endTime}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListProgramproductsTitle_endTime}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.endTime}">
+                        <f:convertDateTime  pattern="HH:mm" />
+                    </h:outputText>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.description}" filterBy="#{item.description}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProgramproductsTitle_description}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.description}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.unitID.unitName}" filterBy="#{item.unitID.unitName}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProgramproductsTitle_unitID}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.unitID.unitName}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.programID.programName}" filterBy="#{item.programID.programName}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProgramproductsTitle_programID}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.programID.programName}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.locationID.locationName}" filterBy="#{item.locationID.locationName}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProgramproductsTitle_locationID}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.locationID.locationName}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.calendartypeID.calendartypeName}" filterBy="#{item.calendartypeID.calendartypeName}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListProgramproductsTitle_calendartypeID}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.calendartypeID.calendartypeName}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{programproductsController.prepareCreate}" update=":ProgramproductsCreateForm" oncomplete="PF('ProgramproductsCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ProgramproductsViewForm" oncomplete="PF('ProgramproductsViewDialog').show()" disabled="#{empty programproductsController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ProgramproductsEditForm" oncomplete="PF('ProgramproductsEditDialog').show()" disabled="#{empty programproductsController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{programproductsController.delete}" update=":growl,datalist" disabled="#{empty programproductsController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

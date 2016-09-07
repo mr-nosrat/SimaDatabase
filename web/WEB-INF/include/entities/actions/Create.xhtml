@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ActionsCreateDlg" widgetVar="ActionsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateActionsTitle}" closeOnEscape="true">
+
+            <h:form id="ActionsCreateForm">
+
+                <h:panelGroup id="display" rendered="#{actionsController.selected != null}" style="direction: rtl;">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateActionsLabel_actionName}" for="actionName" />
+                        <p:inputText id="actionName" value="#{actionsController.selected.actionName}" title="#{myBundle.CreateActionsTitle_actionName}" required="true" requiredMessage="#{myBundle.CreateActionsRequiredMessage_actionName}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateActionsLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{actionsController.selected.description}" title="#{myBundle.CreateActionsTitle_description}" />
+
+                        <p:outputLabel value="#{myBundle.CreateActionsLabel_active}" for="active" />
+                        <p:selectBooleanCheckbox id="active" value="#{actionsController.selected.active}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{actionsController.saveNew}" value="#{myBundle.Save}" update="display,:ActionsListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ActionsCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ActionsCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
