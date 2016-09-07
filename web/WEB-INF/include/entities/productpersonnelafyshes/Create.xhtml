@@ -33,7 +33,7 @@
                             <f:selectItems value="#{personnelsController.itemsTop}"
                                            var="personnelIDItem"
                                            itemValue="#{personnelIDItem}"
-                                           itemLabel="#{personnelIDItem.personnelFamily.toString()} #{personnelIDItem.personnelName.toString()}"
+                                           itemLabel="(#{personnelIDItem.personnelCode.toString()})#{personnelIDItem.personnelFamily.toString()} #{personnelIDItem.personnelName.toString()}"
                                            />
 
                         </p:selectOneMenu>
