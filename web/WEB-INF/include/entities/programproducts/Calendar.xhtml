@@ -6,15 +6,14 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
 
-    <h:form id="ProgramproductsListForm">
+    <h:form id="ProgramproductsScheduleForm">
 
         <p:growl id="messages" showDetail="true" />
 
-        <h:panelGrid columnClasses="value">
-            <h3 style="margin-top: 0">Editable Schedule</h3>
-            
-            <p:schedule id="scheduleLocale" value="#{scheduleView.eventModel}" locale="fa" />
+        <h:panelGrid columnClasses="value" width="100%" style="direction: rtl;">
 
+            <p:schedule id="myschedule" value="#{ProgramProductSchedule.lazyEventModel}" locale="fa" timeZone="Asia/Iran" />
+            
         </h:panelGrid>
 
     </h:form>

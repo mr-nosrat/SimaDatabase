@@ -21,4 +21,8 @@
     <welcome-file-list>
         <welcome-file>faces/login.xhtml</welcome-file>
     </welcome-file-list>
+    <context-param>
+        <param-name>primefaces.DIR</param-name>
+        <param-value>RTL</param-value>
+    </context-param>
 </web-app>

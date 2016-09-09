@@ -31,7 +31,7 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@ManagedBean
+@ManagedBean(name="ProgramProductSchedule")
 @ViewScoped
 public class ProgramProductSchedule implements Serializable {
 
@@ -44,18 +44,17 @@ public class ProgramProductSchedule implements Serializable {
     @PostConstruct
     public void init() {
         eventModel = new DefaultScheduleModel();
-        DateFormat dfDate = new SimpleDateFormat("MM/dd/yyyy");
-        ProgramproductsController ppc = new ProgramproductsController();
-        for (Programproducts col : ppc.getItems()) {
-            try {
-                for (int i = dfDate.parse(col.getStartDate().toString()).getDate(); i < dfDate.parse(col.getEndDate().toString()).getDate(); i++) {
-                    
-                }
-            } catch (ParseException ex) {
-                Logger.getLogger(ProgramProductSchedule.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            eventModel.addEvent(new DefaultScheduleEvent(col.getProgramID().getProgramName(), previousDay8Pm(), previousDay11Pm()));
-        }
+//        DateFormat dfDate = new SimpleDateFormat("MM/dd/yyyy");
+//        ProgramproductsController ppc = new ProgramproductsController();
+//        for (Programproducts col : ppc.getItems()) {
+//            try {
+//                for (int i = dfDate.parse(col.getStartDate().toString()).getDate(); i < dfDate.parse(col.getEndDate().toString()).getDate(); i++) {
+//                    eventModel.addEvent(new DefaultScheduleEvent(col.getProgramID().getProgramName(), getSchaduleDate(i, col.getStartTime()), getSchaduleDate(i, col.getEndTime())));
+//                }
+//            } catch (ParseException ex) {
+//                Logger.getLogger(ProgramProductSchedule.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
 
         eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm()));
         eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today6Pm()));
@@ -74,18 +73,29 @@ public class ProgramProductSchedule implements Serializable {
         };
     }
 
-    private Date getEventDate(String mDate, String mTime) {
-        Date dDate = null;
+    private Date getEventDate(int mDate, String mTime) {
+        Date dDate = new Date();
         try {
             DateFormat dfDate = new SimpleDateFormat("MM/dd/yyyy");
             DateFormat dfTime = new SimpleDateFormat("HH:mm:ss");
-            dDate = dfDate.parse(mDate);
+//            dDate = dfDate.parse(mDate);
             Date dTime = dfDate.parse(mTime);
             dDate.setTime(dTime.getTime());
+            dDate.setDate(mDate);
         } catch (ParseException ex) {
             Logger.getLogger(ProgramProductSchedule.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dDate;
+    }
+
+    private Date getSchaduleDate(int mDate, Date mTime) {
+        Calendar t = (Calendar) today().clone();
+        t.set(Calendar.DATE, mDate);
+        t.set(Calendar.AM_PM, Calendar.PM);
+//        t.set(Calendar.HOUR, 3);
+        t.setTime(mTime);
+
+        return t.getTime();
     }
 
     public Date getRandomDate(Date base) {
